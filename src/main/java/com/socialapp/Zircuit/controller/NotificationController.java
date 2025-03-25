@@ -62,13 +62,13 @@ public class NotificationController {
 
     @GetMapping("/unread-count")
     @PreAuthorize("isAuthenticated()")
-    public ResponseEntity<Map<String, Long>> getUnreadNotificationCount(
+    public Map<String, Long> getUnreadNotificationCount(
             @AuthenticationPrincipal UserPrincipal currentUser) {
         long count = notificationService.countUnreadNotifications(currentUser.getId());
         
         Map<String, Long> response = new HashMap<>();
         response.put("count", count);
         
-        return ResponseEntity.ok(response);
+        return response;
     }
 }
