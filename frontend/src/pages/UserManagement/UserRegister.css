@@ -1,0 +1,24 @@
+/* Back button styling */
+.back-btn {
+    background-color: #6c757d !important; /* Gray color for back button */
+    color: white !important;
+    margin-right: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.back-btn:hover {
+    background-color: #5a6268 !important; /* Darker gray on hover */
+}
+
+/* Button group styling */
+.button-group {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+/* Icon alignment in buttons */
+.btn-icon-left {
+    margin-right: 5px;
+}
+
