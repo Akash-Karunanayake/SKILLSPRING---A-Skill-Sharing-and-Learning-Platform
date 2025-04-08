@@ -1,11 +1,15 @@
 import React, { useEffect } from "react";
 import { Route, Routes, Navigate } from "react-router";
 import { useNavigate } from "react-router-dom";
+import AddLearningPlan from "./pages/LearningPlan/AddLearningPlan";
+import AllLearningPlan from "./pages/LearningPlan/AllLearningPlan";
+import UpdateLearningPlan from "./pages/LearningPlan/UpdateLearningPlan";
 import UserLogin from "./Pages/UserManagement/UserLogin";
 import UserRegister from "./Pages/UserManagement/UserRegister";
 import UpdateUserProfile from "./Pages/UserManagement/UpdateUserProfile";
 import UserProfile from "./Pages/UserManagement/UserProfile";
 import GoogalUserPro from "./Pages/UserManagement/GoogalUserPro";
+import MyLearningPlan from "./pages/LearningPlan/MyLearningPlan";
 import NavBar from "./Components/NavBar/NavBar";
 
 function ProtectedRoute({ children }) {
@@ -48,6 +52,38 @@ function App() {
           <Route path="/register" element={<UserRegister />} />
 
           {/* Protected Routes with Navbar */}
+          <Route
+            path="/addLearningPlan"
+            element={
+              <ProtectedRoute>
+                <AddLearningPlan />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/allLearningPlan"
+            element={
+              <ProtectedRoute>
+                <AllLearningPlan />
+              </ProtectedRoute>
+            }
+          />
+           <Route
+            path="/myLearningPlan"
+            element={
+              <ProtectedRoute>
+                <MyLearningPlan />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/updateLearningPlan/:id"
+            element={
+              <ProtectedRoute>
+                <UpdateLearningPlan />
+              </ProtectedRoute>
+            }
+          />
           <Route
             path="/updateUserProfile/:id"
             element={
