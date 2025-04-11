@@ -7,6 +7,10 @@ import UpdateUserProfile from "./Pages/UserManagement/UpdateUserProfile";
 import UserProfile from "./Pages/UserManagement/UserProfile";
 import GoogalUserPro from "./Pages/UserManagement/GoogalUserPro";
 import NavBar from "./Components/NavBar/NavBar";
+import AddNewPost from "./Pages/PostManagement/AddNewPost";
+import AllPost from "./Pages/PostManagement/AllPost";
+import UpdatePost from "./Pages/PostManagement/UpdatePost";
+
 
 function ProtectedRoute({ children }) {
   const userID = localStorage.getItem("userID");
@@ -72,6 +76,31 @@ function App() {
               <ProtectedRoute>
                 <NavBar />
                 <GoogalUserPro />
+              </ProtectedRoute>
+            }
+          />
+
+<Route
+            path="/allPost"
+            element={
+              <ProtectedRoute>
+                <AllPost />
+              </ProtectedRoute>
+            }
+          />
+           <Route
+            path="/myAllPost"
+            element={
+              <ProtectedRoute>
+                <MyAllPost />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/updatePost/:id"
+            element={
+              <ProtectedRoute>
+                <UpdatePost />
               </ProtectedRoute>
             }
           />
