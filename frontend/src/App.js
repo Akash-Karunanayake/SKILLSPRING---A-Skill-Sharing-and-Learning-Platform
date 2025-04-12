@@ -9,7 +9,7 @@ import GoogalUserPro from "./Pages/UserManagement/GoogalUserPro";
 import NavBar from "./Components/NavBar/NavBar";
 import AddNewPost from "./Pages/PostManagement/AddNewPost";
 import AllPost from "./Pages/PostManagement/AllPost";
-import UpdatePost from "./Pages/PostManagement/UpdatePost";
+import UpdatePost from "./pages/PostManagement/UpdatePost";
 
 
 function ProtectedRoute({ children }) {
