@@ -138,10 +138,10 @@ function AddNewPost() {
                 className="form-select"
               >
                 <option value="" disabled>Select Category</option>
-                <option value="Tech">Tech</option>
+                <option value="Web Designing">Web Designing</option>
                 <option value="Programming">Programming</option>
-                <option value="Cooking">Cooking</option>
-                <option value="Photography">Photography</option>
+                <option value="Data Science">Data Science</option>
+                <option value="Artificial Intelligence">Artificial Intelligence</option>
               </select>
             </div>
             
