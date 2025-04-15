@@ -5,6 +5,7 @@ import backend.LearningPlan.model.LearningPlanModel;
 import backend.User.model.UserModel;
 import backend.LearningPlan.model.LearningPlanModel;
 import backend.User.repository.UserRepository;
+import backend.Achievements.repository.AchievementsRepository;
 import backend.LearningPlan.repository.LearningPlanRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -34,10 +35,15 @@ public class UserController {
     private UserRepository userRepository;
 
     @Autowired
-    private JavaMailSender mailSender; // Add JavaMailSender for sending emails
+    private AchievementsRepository achievementsRepository; // Inject the repository
 
     @Autowired
     private LearningPlanRepository learningPlanRepository; // Inject the repository
+
+    @Autowired
+    private JavaMailSender mailSender; // Add JavaMailSender for sending emails
+
+    
 
     private static final String PROFILE_UPLOAD_DIR = "uploads/profile"; // Relative path
 
@@ -179,8 +185,9 @@ public class UserController {
 
         // Delete user-related data
         userRepository.findById(id).ifPresent(user -> {
-            // Delete user's posts
             
+            // Delete user's posts
+            achievementsRepository.deleteByPostOwnerID(id);
             learningPlanRepository.deleteByPostOwnerID(id);
             
         });
