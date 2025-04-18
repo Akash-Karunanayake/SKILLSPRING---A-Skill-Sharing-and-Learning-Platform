@@ -1,0 +1,4888 @@
+This file is a merged representation of a subset of the codebase, containing specifically included files, combined into a single document by Repomix.
+
+================================================================
+File Summary
+================================================================
+
+Purpose:
+--------
+This file contains a packed representation of the entire repository's contents.
+It is designed to be easily consumable by AI systems for analysis, code review,
+or other automated processes.
+
+File Format:
+------------
+The content is organized as follows:
+1. This summary section
+2. Repository information
+3. Directory structure
+4. Multiple file entries, each consisting of:
+  a. A separator line (================)
+  b. The file path (File: path/to/file)
+  c. Another separator line
+  d. The full contents of the file
+  e. A blank line
+
+Usage Guidelines:
+-----------------
+- This file should be treated as read-only. Any changes should be made to the
+  original repository files, not this packed version.
+- When processing this file, use the file path to distinguish
+  between different files in the repository.
+- Be aware that this file may contain sensitive information. Handle it with
+  the same level of security as you would the original repository.
+
+Notes:
+------
+- Some files may have been excluded based on .gitignore rules and Repomix's configuration
+- Binary files are not included in this packed representation. Please refer to the Repository Structure section for a complete list of file paths, including binary files
+- Only files matching these patterns are included: frontend
+- Files matching patterns in .gitignore are excluded
+- Files matching default ignore patterns are excluded
+- Files are sorted by Git change count (files with more changes are at the bottom)
+
+Additional Info:
+----------------
+
+================================================================
+Directory Structure
+================================================================
+frontend/.gitignore
+frontend/eslint.config.js
+frontend/index.html
+frontend/package.json
+frontend/postcss.config.js
+frontend/public/vite.svg
+frontend/README.md
+frontend/src/App.css
+frontend/src/App.jsx
+frontend/src/assets/react.svg
+frontend/src/components/FollowButton.jsx
+frontend/src/components/Layout.jsx
+frontend/src/components/ProtectedRoute.jsx
+frontend/src/components/UserCard.jsx
+frontend/src/index.css
+frontend/src/main.jsx
+frontend/src/pages/Chat.jsx
+frontend/src/pages/Conversations.jsx
+frontend/src/pages/EditProfile.jsx
+frontend/src/pages/EmailVerification.jsx
+frontend/src/pages/Followers.jsx
+frontend/src/pages/Following.jsx
+frontend/src/pages/ForgotPassword.jsx
+frontend/src/pages/Home.jsx
+frontend/src/pages/Login.jsx
+frontend/src/pages/NotificationsPage.jsx
+frontend/src/pages/Profile.jsx
+frontend/src/pages/Register.jsx
+frontend/src/pages/ResetPassword.jsx
+frontend/src/pages/Settings.jsx
+frontend/src/services/api.js
+frontend/src/services/socket.js
+frontend/src/store/index.js
+frontend/src/store/slices/authSlice.js
+frontend/src/store/slices/notificationSlice.js
+frontend/src/store/slices/uiSlice.js
+frontend/tailwind.config.js
+frontend/vite.config.js
+
+================================================================
+Files
+================================================================
+
+================
+File: frontend/.gitignore
+================
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+================
+File: frontend/eslint.config.js
+================
+import js from '@eslint/js'
+import globals from 'globals'
+import reactHooks from 'eslint-plugin-react-hooks'
+import reactRefresh from 'eslint-plugin-react-refresh'
+
+export default [
+  { ignores: ['dist'] },
+  {
+    files: ['**/*.{js,jsx}'],
+    languageOptions: {
+      ecmaVersion: 2020,
+      globals: globals.browser,
+      parserOptions: {
+        ecmaVersion: 'latest',
+        ecmaFeatures: { jsx: true },
+        sourceType: 'module',
+      },
+    },
+    plugins: {
+      'react-hooks': reactHooks,
+      'react-refresh': reactRefresh,
+    },
+    rules: {
+      ...js.configs.recommended.rules,
+      ...reactHooks.configs.recommended.rules,
+      'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }],
+      'react-refresh/only-export-components': [
+        'warn',
+        { allowConstantExport: true },
+      ],
+    },
+  },
+]
+
+================
+File: frontend/index.html
+================
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + React</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
+
+================
+File: frontend/package.json
+================
+{
+  "name": "frontend",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint .",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "@mui/icons-material": "^7.0.2",
+    "@mui/material": "^7.0.2",
+    "@reduxjs/toolkit": "^2.6.1",
+    "@stomp/stompjs": "^7.1.1",
+    "@tanstack/react-query": "^5.74.3",
+    "axios": "^1.8.4",
+    "date-fns": "^4.1.0",
+    "formik": "^2.4.6",
+    "framer-motion": "^12.7.3",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-redux": "^9.2.0",
+    "react-router-dom": "^7.5.0",
+    "react-toastify": "^11.0.5",
+    "sockjs-client": "^1.6.1",
+    "yup": "^1.6.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.22.0",
+    "@types/react": "^19.0.10",
+    "@types/react-dom": "^19.0.4",
+    "@vitejs/plugin-react": "^4.3.4",
+    "autoprefixer": "^10.4.21",
+    "eslint": "^9.22.0",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "eslint-plugin-react-refresh": "^0.4.19",
+    "globals": "^16.0.0",
+    "postcss": "^8.5.3",
+    "tailwindcss": "^3.4.17",
+    "vite": "^6.3.0"
+  }
+}
+
+================
+File: frontend/postcss.config.js
+================
+export default {
+  plugins: {
+    tailwindcss: {},
+    autoprefixer: {},
+  },
+}
+
+================
+File: frontend/public/vite.svg
+================
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--logos" width="31.88" height="32" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 257"><defs><linearGradient id="IconifyId1813088fe1fbc01fb466" x1="-.828%" x2="57.636%" y1="7.652%" y2="78.411%"><stop offset="0%" stop-color="#41D1FF"></stop><stop offset="100%" stop-color="#BD34FE"></stop></linearGradient><linearGradient id="IconifyId1813088fe1fbc01fb467" x1="43.376%" x2="50.316%" y1="2.242%" y2="89.03%"><stop offset="0%" stop-color="#FFEA83"></stop><stop offset="8.333%" stop-color="#FFDD35"></stop><stop offset="100%" stop-color="#FFA800"></stop></linearGradient></defs><path fill="url(#IconifyId1813088fe1fbc01fb466)" d="M255.153 37.938L134.897 252.976c-2.483 4.44-8.862 4.466-11.382.048L.875 37.958c-2.746-4.814 1.371-10.646 6.827-9.67l120.385 21.517a6.537 6.537 0 0 0 2.322-.004l117.867-21.483c5.438-.991 9.574 4.796 6.877 9.62Z"></path><path fill="url(#IconifyId1813088fe1fbc01fb467)" d="M185.432.063L96.44 17.501a3.268 3.268 0 0 0-2.634 3.014l-5.474 92.456a3.268 3.268 0 0 0 3.997 3.378l24.777-5.718c2.318-.535 4.413 1.507 3.936 3.838l-7.361 36.047c-.495 2.426 1.782 4.5 4.151 3.78l15.304-4.649c2.372-.72 4.652 1.36 4.15 3.788l-11.698 56.621c-.732 3.542 3.979 5.473 5.943 2.437l1.313-2.028l72.516-144.72c1.215-2.423-.88-5.186-3.54-4.672l-25.505 4.922c-2.396.462-4.435-1.77-3.759-4.114l16.646-57.705c.677-2.35-1.37-4.583-3.769-4.113Z"></path></svg>
+
+================
+File: frontend/README.md
+================
+# React + Vite
+
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+
+Currently, two official plugins are available:
+
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+
+## Expanding the ESLint configuration
+
+If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+
+================
+File: frontend/src/App.css
+================
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+================
+File: frontend/src/App.jsx
+================
+import { useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
+// Pages
+import Login from './pages/Login';
+import Register from './pages/Register';
+import ForgotPassword from './pages/ForgotPassword';
+import ResetPassword from './pages/ResetPassword';
+import EmailVerification from './pages/EmailVerification';
+import Home from './pages/Home';
+import Profile from './pages/Profile';
+import EditProfile from './pages/EditProfile';
+import Settings from './pages/Settings';
+import Followers from './pages/Followers';
+import Following from './pages/Following';
+import Conversations from './pages/Conversations';
+import Chat from './pages/Chat';
+import NotificationsPage from './pages/NotificationsPage';
+
+// Components 
+import Layout from './components/Layout';
+import ProtectedRoute from './components/ProtectedRoute';
+
+// Redux actions
+import { getUnreadCount } from './store/slices/notificationSlice';
+import { connectWebSocket, onNotification } from './services/socket';
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      retry: 1,
+      staleTime: 30000,
+    },
+  },
+});
+
+function App() {
+  const { user, isAuthenticated } = useSelector(state => state.auth);
+  const { theme } = useSelector(state => state.ui);
+  const dispatch = useDispatch();
+  
+  // Apply theme on initial load
+  useEffect(() => {
+    if (theme === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, [theme]);
+  
+  // Setup WebSocket and notification listeners when authenticated
+  useEffect(() => {
+    if (isAuthenticated && user) {
+      // Connect to WebSocket
+      connectWebSocket(user.id);
+      
+      // Get initial unread notification count
+      dispatch(getUnreadCount());
+      
+      // Add notification listener
+      const unsubscribe = onNotification(() => {
+        // Refresh unread count when a new notification arrives
+        dispatch(getUnreadCount());
+      });
+      
+      return () => {
+        unsubscribe();
+      };
+    }
+  }, [isAuthenticated, user, dispatch]);
+  
+  return (
+    <QueryClientProvider client={queryClient}>
+      <Router>
+        <Routes>
+          {/* Auth Routes */}
+          <Route path="/login" element={isAuthenticated ? <Navigate to="/" /> : <Login />} />
+          <Route path="/register" element={isAuthenticated ? <Navigate to="/" /> : <Register />} />
+          <Route path="/forgot-password" element={isAuthenticated ? <Navigate to="/" /> : <ForgotPassword />} />
+          <Route path="/reset-password" element={isAuthenticated ? <Navigate to="/" /> : <ResetPassword />} />
+          <Route path="/verify-email" element={<EmailVerification />} />
+          
+          {/* Protected Routes */}
+          <Route path="/" element={<ProtectedRoute><Layout><Home /></Layout></ProtectedRoute>} />
+          <Route path="/profile/:userId" element={<ProtectedRoute><Layout><Profile /></Layout></ProtectedRoute>} />
+          <Route path="/edit-profile" element={<ProtectedRoute><Layout><EditProfile /></Layout></ProtectedRoute>} />
+          <Route path="/settings" element={<ProtectedRoute><Layout><Settings /></Layout></ProtectedRoute>} />
+          <Route path="/followers/:userId" element={<ProtectedRoute><Layout><Followers /></Layout></ProtectedRoute>} />
+          <Route path="/following/:userId" element={<ProtectedRoute><Layout><Following /></Layout></ProtectedRoute>} />
+          <Route path="/messages" element={<ProtectedRoute><Layout><Conversations /></Layout></ProtectedRoute>} />
+          <Route path="/messages/:userId" element={<ProtectedRoute><Layout><Chat /></Layout></ProtectedRoute>} />
+          <Route path="/notifications" element={<ProtectedRoute><Layout><NotificationsPage /></Layout></ProtectedRoute>} />
+          
+          {/* Fallback */}
+          <Route path="*" element={<Navigate to="/" />} />
+        </Routes>
+        <ToastContainer position="top-right" />
+      </Router>
+    </QueryClientProvider>
+  );
+}
+
+export default App;
+
+================
+File: frontend/src/assets/react.svg
+================
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--logos" width="35.93" height="32" preserveAspectRatio="xMidYMid meet" viewBox="0 0 256 228"><path fill="#00D8FF" d="M210.483 73.824a171.49 171.49 0 0 0-8.24-2.597c.465-1.9.893-3.777 1.273-5.621c6.238-30.281 2.16-54.676-11.769-62.708c-13.355-7.7-35.196.329-57.254 19.526a171.23 171.23 0 0 0-6.375 5.848a155.866 155.866 0 0 0-4.241-3.917C100.759 3.829 77.587-4.822 63.673 3.233C50.33 10.957 46.379 33.89 51.995 62.588a170.974 170.974 0 0 0 1.892 8.48c-3.28.932-6.445 1.924-9.474 2.98C17.309 83.498 0 98.307 0 113.668c0 15.865 18.582 31.778 46.812 41.427a145.52 145.52 0 0 0 6.921 2.165a167.467 167.467 0 0 0-2.01 9.138c-5.354 28.2-1.173 50.591 12.134 58.266c13.744 7.926 36.812-.22 59.273-19.855a145.567 145.567 0 0 0 5.342-4.923a168.064 168.064 0 0 0 6.92 6.314c21.758 18.722 43.246 26.282 56.54 18.586c13.731-7.949 18.194-32.003 12.4-61.268a145.016 145.016 0 0 0-1.535-6.842c1.62-.48 3.21-.974 4.76-1.488c29.348-9.723 48.443-25.443 48.443-41.52c0-15.417-17.868-30.326-45.517-39.844Zm-6.365 70.984c-1.4.463-2.836.91-4.3 1.345c-3.24-10.257-7.612-21.163-12.963-32.432c5.106-11 9.31-21.767 12.459-31.957c2.619.758 5.16 1.557 7.61 2.4c23.69 8.156 38.14 20.213 38.14 29.504c0 9.896-15.606 22.743-40.946 31.14Zm-10.514 20.834c2.562 12.94 2.927 24.64 1.23 33.787c-1.524 8.219-4.59 13.698-8.382 15.893c-8.067 4.67-25.32-1.4-43.927-17.412a156.726 156.726 0 0 1-6.437-5.87c7.214-7.889 14.423-17.06 21.459-27.246c12.376-1.098 24.068-2.894 34.671-5.345a134.17 134.17 0 0 1 1.386 6.193ZM87.276 214.515c-7.882 2.783-14.16 2.863-17.955.675c-8.075-4.657-11.432-22.636-6.853-46.752a156.923 156.923 0 0 1 1.869-8.499c10.486 2.32 22.093 3.988 34.498 4.994c7.084 9.967 14.501 19.128 21.976 27.15a134.668 134.668 0 0 1-4.877 4.492c-9.933 8.682-19.886 14.842-28.658 17.94ZM50.35 144.747c-12.483-4.267-22.792-9.812-29.858-15.863c-6.35-5.437-9.555-10.836-9.555-15.216c0-9.322 13.897-21.212 37.076-29.293c2.813-.98 5.757-1.905 8.812-2.773c3.204 10.42 7.406 21.315 12.477 32.332c-5.137 11.18-9.399 22.249-12.634 32.792a134.718 134.718 0 0 1-6.318-1.979Zm12.378-84.26c-4.811-24.587-1.616-43.134 6.425-47.789c8.564-4.958 27.502 2.111 47.463 19.835a144.318 144.318 0 0 1 3.841 3.545c-7.438 7.987-14.787 17.08-21.808 26.988c-12.04 1.116-23.565 2.908-34.161 5.309a160.342 160.342 0 0 1-1.76-7.887Zm110.427 27.268a347.8 347.8 0 0 0-7.785-12.803c8.168 1.033 15.994 2.404 23.343 4.08c-2.206 7.072-4.956 14.465-8.193 22.045a381.151 381.151 0 0 0-7.365-13.322Zm-45.032-43.861c5.044 5.465 10.096 11.566 15.065 18.186a322.04 322.04 0 0 0-30.257-.006c4.974-6.559 10.069-12.652 15.192-18.18ZM82.802 87.83a323.167 323.167 0 0 0-7.227 13.238c-3.184-7.553-5.909-14.98-8.134-22.152c7.304-1.634 15.093-2.97 23.209-3.984a321.524 321.524 0 0 0-7.848 12.897Zm8.081 65.352c-8.385-.936-16.291-2.203-23.593-3.793c2.26-7.3 5.045-14.885 8.298-22.6a321.187 321.187 0 0 0 7.257 13.246c2.594 4.48 5.28 8.868 8.038 13.147Zm37.542 31.03c-5.184-5.592-10.354-11.779-15.403-18.433c4.902.192 9.899.29 14.978.29c5.218 0 10.376-.117 15.453-.343c-4.985 6.774-10.018 12.97-15.028 18.486Zm52.198-57.817c3.422 7.8 6.306 15.345 8.596 22.52c-7.422 1.694-15.436 3.058-23.88 4.071a382.417 382.417 0 0 0 7.859-13.026a347.403 347.403 0 0 0 7.425-13.565Zm-16.898 8.101a358.557 358.557 0 0 1-12.281 19.815a329.4 329.4 0 0 1-23.444.823c-7.967 0-15.716-.248-23.178-.732a310.202 310.202 0 0 1-12.513-19.846h.001a307.41 307.41 0 0 1-10.923-20.627a310.278 310.278 0 0 1 10.89-20.637l-.001.001a307.318 307.318 0 0 1 12.413-19.761c7.613-.576 15.42-.876 23.31-.876H128c7.926 0 15.743.303 23.354.883a329.357 329.357 0 0 1 12.335 19.695a358.489 358.489 0 0 1 11.036 20.54a329.472 329.472 0 0 1-11 20.722Zm22.56-122.124c8.572 4.944 11.906 24.881 6.52 51.026c-.344 1.668-.73 3.367-1.15 5.09c-10.622-2.452-22.155-4.275-34.23-5.408c-7.034-10.017-14.323-19.124-21.64-27.008a160.789 160.789 0 0 1 5.888-5.4c18.9-16.447 36.564-22.941 44.612-18.3ZM128 90.808c12.625 0 22.86 10.235 22.86 22.86s-10.235 22.86-22.86 22.86s-22.86-10.235-22.86-22.86s10.235-22.86 22.86-22.86Z"></path></svg>
+
+================
+File: frontend/src/components/FollowButton.jsx
+================
+import { useState } from 'react';
+import { Button, CircularProgress } from '@mui/material';
+import { PersonAdd, PersonRemove } from '@mui/icons-material';
+import { useSelector } from 'react-redux';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { toast } from 'react-toastify';
+
+import { followService, userService } from '../services/api';
+
+const FollowButton = ({ userId }) => {
+  const { user: currentUser } = useSelector(state => state.auth);
+  const queryClient = useQueryClient();
+  const [isFollowing, setIsFollowing] = useState(false);
+  
+  // Skip if viewing own profile
+  if (currentUser?.id === userId) {
+    return null;
+  }
+  
+  // Get user profile to check initial follow status
+  const { data: profile, isLoading: profileLoading } = useQuery(
+    ['profile', userId],
+    () => userService.getProfile(userId),
+    {
+      onSuccess: (data) => {
+        setIsFollowing(data.isFollowing);
+      },
+      enabled: !!userId,
+    }
+  );
+  
+  // Follow mutation
+  const followMutation = useMutation({
+    mutationFn: () => followService.followUser(userId),
+    onSuccess: () => {
+        setIsFollowing(true);
+        toast.success(`You are now following @${profile?.username}`);
+        
+        // Invalidate profile query to update follower count
+        queryClient.invalidateQueries(['profile', userId]);
+      },
+      onError: (error) => {
+        toast.error(error.response?.data?.message || 'Failed to follow user');
+      },
+  });
+  
+  // Unfollow mutation
+  const unfollowMutation = useMutation({
+    mutationFn: () => followService.unfollowUser(userId),
+    onSuccess: () => {
+        setIsFollowing(false);
+        toast.success(`You unfollowed @${profile?.username}`);
+        
+        // Invalidate profile query to update follower count
+        queryClient.invalidateQueries(['profile', userId]);
+      },
+      onError: (error) => {
+        toast.error(error.response?.data?.message || 'Failed to unfollow user');
+      },
+    
+  });
+  
+  const handleFollowToggle = () => {
+    if (isFollowing) {
+      unfollowMutation.mutate();
+    } else {
+      followMutation.mutate();
+    }
+  };
+  
+  const isLoading = profileLoading || followMutation.isLoading || unfollowMutation.isLoading;
+  
+  return (
+    <Button
+      variant={isFollowing ? 'outlined' : 'contained'}
+      color={isFollowing ? 'secondary' : 'primary'}
+      size="small"
+      disabled={isLoading}
+      onClick={(e) => {
+        e.stopPropagation(); // Prevent navigation if button is in a clickable card
+        handleFollowToggle();
+      }}
+      startIcon={
+        isLoading ? (
+          <CircularProgress size={16} color="inherit" />
+        ) : isFollowing ? (
+          <PersonRemove />
+        ) : (
+          <PersonAdd />
+        )
+      }
+    >
+      {isFollowing ? 'Unfollow' : 'Follow'}
+    </Button>
+  );
+};
+
+export default FollowButton;
+
+================
+File: frontend/src/components/Layout.jsx
+================
+import { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { AppBar, Toolbar, IconButton, Badge, Drawer, List, ListItem, ListItemIcon, ListItemText, Divider, useMediaQuery } from '@mui/material';
+import {
+  Menu as MenuIcon,
+  Home as HomeIcon,
+  Person as PersonIcon,
+  Message as MessageIcon,
+  Notifications as NotificationsIcon,
+  Settings as SettingsIcon,
+  Logout as LogoutIcon,
+  LightMode as LightModeIcon,
+  DarkMode as DarkModeIcon,
+} from '@mui/icons-material';
+import { motion } from 'framer-motion';
+
+import { toggleTheme } from '../store/slices/uiSlice';
+import { logout } from '../store/slices/authSlice';
+
+const Layout = ({ children }) => {
+  const { user } = useSelector(state => state.auth);
+  const { theme } = useSelector(state => state.ui);
+  const { unreadCount } = useSelector(state => state.notifications);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
+  
+  const isMobile = useMediaQuery('(max-width: 768px)');
+  const [drawerOpen, setDrawerOpen] = useState(!isMobile);
+  
+  // Close drawer on mobile when location changes
+  useEffect(() => {
+    if (isMobile) {
+      setDrawerOpen(false);
+    }
+  }, [location, isMobile]);
+  
+  // Automatically open drawer on desktop
+  useEffect(() => {
+    setDrawerOpen(!isMobile);
+  }, [isMobile]);
+  
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate('/login');
+  };
+  
+  const drawerWidth = 240;
+  
+  const navItems = [
+    { text: 'Home', icon: <HomeIcon />, path: '/' },
+    { text: 'Profile', icon: <PersonIcon />, path: `/profile/${user?.id}` },
+    { text: 'Messages', icon: <MessageIcon />, path: '/messages', badge: 0 },
+    { text: 'Notifications', icon: <NotificationsIcon />, path: '/notifications', badge: unreadCount },
+    { text: 'Settings', icon: <SettingsIcon />, path: '/settings' },
+  ];
+  
+  const drawer = (
+    <div className="h-full flex flex-col bg-white dark:bg-gray-800 shadow-md">
+      <div className="p-4 flex items-center justify-center">
+        <h1 className="text-2xl font-bold text-primary">Zircuit</h1>
+      </div>
+      <Divider />
+      <List className="flex-grow">
+        {navItems.map((item) => (
+          <ListItem
+            button
+            key={item.text}
+            onClick={() => navigate(item.path)}
+            className={`${
+              location.pathname === item.path
+                ? 'bg-primary-light bg-opacity-10 text-primary'
+                : 'text-text dark:text-text-light'
+            }`}
+          >
+            <ListItemIcon className={`${
+              location.pathname === item.path
+                ? 'text-primary'
+                : 'text-text dark:text-text-light'
+            }`}>
+              {item.badge ? (
+                <Badge badgeContent={item.badge} color="error">
+                  {item.icon}
+                </Badge>
+              ) : (
+                item.icon
+              )}
+            </ListItemIcon>
+            <ListItemText primary={item.text} />
+          </ListItem>
+        ))}
+      </List>
+      <Divider />
+      <List>
+        <ListItem button onClick={() => dispatch(toggleTheme())}>
+          <ListItemIcon>
+            {theme === 'dark' ? <LightModeIcon /> : <DarkModeIcon />}
+          </ListItemIcon>
+          <ListItemText primary={theme === 'dark' ? 'Light Mode' : 'Dark Mode'} />
+        </ListItem>
+        <ListItem button onClick={handleLogout}>
+          <ListItemIcon>
+            <LogoutIcon />
+          </ListItemIcon>
+          <ListItemText primary="Logout" />
+        </ListItem>
+      </List>
+    </div>
+  );
+  
+  return (
+    <div className="flex h-screen bg-background dark:bg-background-dark">
+      {/* Mobile App Bar */}
+      <AppBar position="fixed" className="lg:hidden" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
+        <Toolbar className="bg-white dark:bg-gray-800">
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            edge="start"
+            onClick={() => setDrawerOpen(!drawerOpen)}
+            className="text-text dark:text-text-light"
+          >
+            <MenuIcon />
+          </IconButton>
+          <div className="flex-grow flex justify-center">
+            <h1 className="text-xl font-bold text-primary">Zircuit</h1>
+          </div>
+          <div className="flex space-x-2">
+            <IconButton
+              color="inherit"
+              onClick={() => navigate('/notifications')}
+              className="text-text dark:text-text-light"
+            >
+              <Badge badgeContent={unreadCount} color="error">
+                <NotificationsIcon />
+              </Badge>
+            </IconButton>
+            <IconButton
+              color="inherit"
+              onClick={() => navigate('/messages')}
+              className="text-text dark:text-text-light"
+            >
+              <MessageIcon />
+            </IconButton>
+          </div>
+        </Toolbar>
+      </AppBar>
+      
+      {/* Drawer */}
+      {isMobile ? (
+        <Drawer
+          variant="temporary"
+          open={drawerOpen}
+          onClose={() => setDrawerOpen(false)}
+          ModalProps={{
+            keepMounted: true, // Better open performance on mobile.
+          }}
+          sx={{
+            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+          }}
+        >
+          {drawer}
+        </Drawer>
+      ) : (
+        <Drawer
+          variant="permanent"
+          sx={{
+            width: drawerWidth,
+            flexShrink: 0,
+            '& .MuiDrawer-paper': {
+              width: drawerWidth,
+              boxSizing: 'border-box',
+              borderRight: 'none',
+            },
+          }}
+          open
+        >
+          {drawer}
+        </Drawer>
+      )}
+      
+      {/* Main Content */}
+      <motion.main
+        className="flex-grow overflow-auto p-4 pt-20 lg:pt-4"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.2 }}
+        style={{ 
+          marginLeft: isMobile ? 0 : drawerWidth,
+        }}
+      >
+        {children}
+      </motion.main>
+    </div>
+  );
+};
+
+export default Layout;
+
+================
+File: frontend/src/components/ProtectedRoute.jsx
+================
+import { Navigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+
+const ProtectedRoute = ({ children }) => {
+  const { isAuthenticated, isLoading } = useSelector(state => state.auth);
+
+  if (isLoading) {
+    // Add a loading spinner here if necessary
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-primary"></div>
+      </div>
+    );
+  }
+
+  if (!isAuthenticated) {
+    return <Navigate to="/login" />;
+  }
+
+  return children;
+};
+
+export default ProtectedRoute;
+
+================
+File: frontend/src/components/UserCard.jsx
+================
+import { useNavigate } from 'react-router-dom';
+import { Card, CardContent, Typography, Avatar, Button } from '@mui/material';
+import { VerifiedUser as VerifiedIcon } from '@mui/icons-material';
+import FollowButton from './FollowButton';
+
+const UserCard = ({ user, showFollowButton = true, isLink = true }) => {
+  const navigate = useNavigate();
+  
+  const handleClick = () => {
+    if (isLink) {
+      navigate(`/profile/${user.id}`);
+    }
+  };
+  
+  return (
+    <Card className="cursor-pointer hover:shadow-md transition-shadow">
+      <CardContent className="flex items-center p-4" onClick={handleClick}>
+        <Avatar 
+          src={user.avatarUrl} 
+          alt={user.username}
+          className="w-12 h-12 mr-4"
+        />
+        <div className="flex-grow">
+          <div className="flex items-center">
+            <Typography variant="subtitle1" className="font-medium">
+              {user.fullName}
+            </Typography>
+            {user.isVerified && (
+              <VerifiedIcon 
+                className="ml-1 text-primary" 
+                fontSize="small" 
+              />
+            )}
+          </div>
+          <Typography variant="body2" className="text-gray-600 dark:text-gray-300">
+            @{user.username}
+          </Typography>
+        </div>
+        
+        {showFollowButton && (
+          <FollowButton userId={user.id} />
+        )}
+      </CardContent>
+    </Card>
+  );
+};
+
+export default UserCard;
+
+================
+File: frontend/src/index.css
+================
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+:root {
+  font-family: Inter, system-ui, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-primary text-white font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-primary focus:ring-opacity-50 transition-colors;
+  }
+
+  .btn-secondary {
+    @apply bg-secondary text-text font-semibold py-2 px-4 rounded-lg shadow-md hover:bg-secondary-dark focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-opacity-50 transition-colors;
+  }
+
+  .card {
+    @apply bg-white dark:bg-gray-800 rounded-lg shadow-md p-6;
+  }
+
+  .input-field {
+    @apply w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent;
+  }
+}
+
+================
+File: frontend/src/main.jsx
+================
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import { Provider } from 'react-redux';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import App from './App';
+import store from './store';
+import './index.css';
+
+// Create theme with support for light/dark mode
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#4f46e5', // Indigo
+      light: '#6366f1',
+      dark: '#4338ca',
+    },
+    secondary: {
+      main: '#e5e7eb', // Gray
+      light: '#f3f4f6',
+      dark: '#d1d5db',
+    },
+  },
+  typography: {
+    fontFamily: 'Inter, system-ui, sans-serif',
+  },
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          textTransform: 'none',
+          borderRadius: '0.5rem',
+        },
+      },
+    },
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          borderRadius: '0.5rem',
+        },
+      },
+    },
+  },
+});
+
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
+    <Provider store={store}>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <App />
+      </ThemeProvider>
+    </Provider>
+  </React.StrictMode>
+);
+
+================
+File: frontend/src/pages/Chat.jsx
+================
+import { useState, useEffect, useRef } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { 
+  Typography, 
+  Paper, 
+  CircularProgress, 
+  Divider,
+  TextField,
+  IconButton,
+  Avatar,
+  AppBar,
+  Toolbar
+} from '@mui/material';
+import { 
+  Send as SendIcon, 
+  ArrowBack as ArrowBackIcon,
+  MoreVert as MoreVertIcon,
+  Delete as DeleteIcon
+} from '@mui/icons-material';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { toast } from 'react-toastify';
+import { format } from 'date-fns';
+import { Menu, MenuItem } from '@mui/material';
+
+import { userService, messageService } from '../services/api';
+import { sendMessage, onMessage } from '../services/socket';
+
+const Chat = () => {
+  const { userId } = useParams();
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
+  const { user: currentUser } = useSelector(state => state.auth);
+  const [messageInput, setMessageInput] = useState('');
+  const [selectedMessageId, setSelectedMessageId] = useState(null);
+  const [menuAnchorEl, setMenuAnchorEl] = useState(null);
+  const messagesEndRef = useRef(null);
+  
+  // Fetch chat partner's profile
+  const { data: profile, isLoading: profileLoading } = useQuery(
+    ['profile', userId],
+    () => userService.getProfile(userId),
+    {
+      staleTime: 60000, // 1 minute
+    }
+  );
+  
+  // Fetch messages
+  const { data: messagesData, isLoading: messagesLoading, refetch } = useQuery(
+    ['messages', userId],
+    () => messageService.getConversation(userId),
+    {
+      staleTime: 0, // Always refetch
+      refetchOnWindowFocus: true,
+      onSuccess: () => {
+        // Scroll to bottom when messages load
+        setTimeout(() => {
+          scrollToBottom();
+        }, 100);
+      }
+    }
+  );
+  
+  // Send message mutation
+  const sendMessageMutation = useMutation({
+    mutationFn: (content) => messageService.sendMessage(userId, content),
+    onSuccess: () => {
+        // Clear input field
+        setMessageInput('');
+        
+        // Refetch messages
+        refetch();
+        
+        // Invalidate conversations to update last message
+        queryClient.invalidateQueries(['conversations']);
+      },
+      onError: (error) => {
+        toast.error(error.response?.data?.message || 'Failed to send message');
+      },
+  });
+  
+  // Delete message mutation
+  const deleteMessageMutation = useMutation({
+    mutationFn: (messageId) => messageService.deleteMessage(messageId),
+    onSuccess: () => {
+        toast.success('Message deleted');
+        
+        // Close menu
+        handleMenuClose();
+        
+        // Refetch messages and conversations
+        refetch();
+        queryClient.invalidateQueries(['conversations']);
+      },
+      onError: (error) => {
+        toast.error(error.response?.data?.message || 'Failed to delete message');
+      },
+  });
+  
+  // Setup WebSocket listener for new messages
+  useEffect(() => {
+    const unsubscribe = onMessage((message) => {
+      // Only refetch if the message is from/to the current chat partner
+      if (message.senderId === userId || message.receiverId === userId) {
+        refetch();
+      }
+    });
+    
+    return () => {
+      unsubscribe();
+    };
+  }, [refetch, userId]);
+  
+  // Scroll to bottom when new messages arrive
+  useEffect(() => {
+    scrollToBottom();
+  }, [messagesData]);
+  
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+  
+  const handleSendMessage = (e) => {
+    e.preventDefault();
+    
+    if (!messageInput.trim()) return;
+    
+    // Send via WebSocket for real-time delivery
+    sendMessage(userId, messageInput);
+    
+    // Also send via REST API as a fallback
+    sendMessageMutation.mutate(messageInput);
+  };
+  
+  const handleMessageMenu = (event, messageId) => {
+    setSelectedMessageId(messageId);
+    setMenuAnchorEl(event.currentTarget);
+  };
+  
+  const handleMenuClose = () => {
+    setMenuAnchorEl(null);
+    setSelectedMessageId(null);
+  };
+  
+  const handleDeleteMessage = () => {
+    if (selectedMessageId) {
+      deleteMessageMutation.mutate(selectedMessageId);
+    }
+  };
+  
+  const goBack = () => {
+    navigate('/messages');
+  };
+  
+  // Format message time
+  const formatMessageTime = (dateTime) => {
+    if (!dateTime) return '';
+    
+    const date = new Date(dateTime);
+    const now = new Date();
+    
+    // If today, show time
+    if (date.toDateString() === now.toDateString()) {
+      return format(date, 'h:mm a');
+    }
+    
+    // If this year, show month and day + time
+    if (date.getFullYear() === now.getFullYear()) {
+      return format(date, 'MMM d, h:mm a');
+    }
+    
+    // Otherwise, show full date and time
+    return format(date, 'MMM d yyyy, h:mm a');
+  };
+  
+  // Get messages in reverse order (newest first from the API)
+  const messages = messagesData?.content ? [...messagesData.content].reverse() : [];
+  
+  const isLoading = profileLoading || messagesLoading;
+  
+  return (
+    <div className="flex flex-col h-full">
+      {/* Chat Header */}
+      <AppBar position="static" color="default" elevation={1} className="bg-white dark:bg-gray-800">
+        <Toolbar className="px-2">
+          <IconButton edge="start" color="inherit" onClick={goBack} className="mr-2">
+            <ArrowBackIcon />
+          </IconButton>
+          
+          {profileLoading ? (
+            <div className="flex items-center">
+              <CircularProgress size={24} className="mr-2" />
+              <Typography variant="subtitle1">Loading...</Typography>
+            </div>
+          ) : (
+            <div className="flex items-center" onClick={() => navigate(`/profile/${userId}`)}>
+              <Avatar src={profile?.avatarUrl} alt={profile?.username} className="mr-2" />
+              <div>
+                <Typography variant="subtitle1">{profile?.fullName}</Typography>
+                <Typography variant="caption" className="text-gray-500">
+                  @{profile?.username}
+                </Typography>
+              </div>
+            </div>
+          )}
+        </Toolbar>
+      </AppBar>
+      
+      {/* Messages */}
+      <div className="flex-grow overflow-y-auto p-4">
+        {isLoading ? (
+          <div className="flex items-center justify-center h-full">
+            <CircularProgress />
+          </div>
+        ) : messages.length === 0 ? (
+          <div className="flex flex-col items-center justify-center h-full">
+            <Typography variant="body1" className="text-gray-500">
+              No messages yet. Start the conversation!
+            </Typography>
+          </div>
+        ) : (
+          <div className="space-y-4">
+            {messages.map((message) => {
+              const isCurrentUser = message.senderId === currentUser.id;
+              
+              return (
+                <div 
+                  key={message.id} 
+                  className={`flex ${isCurrentUser ? 'justify-end' : 'justify-start'}`}
+                >
+                  <div 
+                    className={`max-w-xs sm:max-w-md p-3 rounded-lg ${
+                      isCurrentUser 
+                        ? 'bg-primary text-white rounded-br-none' 
+                        : 'bg-gray-200 dark:bg-gray-700 rounded-bl-none'
+                    }`}
+                  >
+                    <div className="flex justify-between items-start">
+                      <Typography variant="body1" className="break-words">
+                        {message.content}
+                      </Typography>
+                      
+                      {isCurrentUser && (
+                        <IconButton 
+                          size="small" 
+                          className={`ml-1 -mt-1 -mr-1 ${isCurrentUser ? 'text-white' : 'text-gray-500'}`}
+                          onClick={(e) => handleMessageMenu(e, message.id)}
+                        >
+                          <MoreVertIcon fontSize="small" />
+                        </IconButton>
+                      )}
+                    </div>
+                    
+                    <Typography 
+                      variant="caption" 
+                      className={`block mt-1 ${isCurrentUser ? 'text-blue-100' : 'text-gray-500'}`}
+                    >
+                      {formatMessageTime(message.sentAt)}
+                      {message.isRead && isCurrentUser && ' • Read'}
+                    </Typography>
+                  </div>
+                </div>
+              );
+            })}
+            <div ref={messagesEndRef} />
+          </div>
+        )}
+      </div>
+      
+      {/* Message Input */}
+      <Paper elevation={3} className="p-2">
+        <form onSubmit={handleSendMessage} className="flex items-center">
+          <TextField
+            fullWidth
+            placeholder="Type a message..."
+            variant="outlined"
+            size="small"
+            value={messageInput}
+            onChange={(e) => setMessageInput(e.target.value)}
+            disabled={sendMessageMutation.isLoading}
+          />
+          <IconButton 
+            color="primary" 
+            type="submit"
+            disabled={!messageInput.trim() || sendMessageMutation.isLoading}
+            className="ml-2"
+          >
+            {sendMessageMutation.isLoading ? (
+              <CircularProgress size={24} />
+            ) : (
+              <SendIcon />
+            )}
+          </IconButton>
+        </form>
+      </Paper>
+      
+      {/* Context Menu for Messages */}
+      <Menu
+        anchorEl={menuAnchorEl}
+        open={Boolean(menuAnchorEl)}
+        onClose={handleMenuClose}
+      >
+        <MenuItem onClick={handleDeleteMessage}>
+          <DeleteIcon fontSize="small" className="mr-2" />
+          Delete Message
+        </MenuItem>
+      </Menu>
+    </div>
+  );
+};
+
+export default Chat;
+
+================
+File: frontend/src/pages/Conversations.jsx
+================
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { 
+  Typography, 
+  Paper, 
+  CircularProgress, 
+  Divider,
+  List,
+  ListItem,
+  ListItemAvatar,
+  ListItemText,
+  Avatar,
+  Badge,
+  TextField,
+  InputAdornment,
+  IconButton
+} from '@mui/material';
+import { Search as SearchIcon, Circle as CircleIcon } from '@mui/icons-material';
+import { useQuery } from '@tanstack/react-query';
+import { format } from 'date-fns';
+
+import { messageService } from '../services/api';
+import { onMessage } from '../services/socket';
+
+const Conversations = () => {
+  const navigate = useNavigate();
+  const [searchTerm, setSearchTerm] = useState('');
+  
+  // Fetch conversations
+  const { data, isLoading, error, refetch } = useQuery(
+    ['conversations'],
+    () => messageService.getConversations(),
+    {
+      staleTime: 10000, // 10 seconds
+    }
+  );
+  
+  // Setup WebSocket listener for new messages
+  useEffect(() => {
+    const unsubscribe = onMessage(() => {
+      // Refresh conversations when a new message is received
+      refetch();
+    });
+    
+    return () => {
+      unsubscribe();
+    };
+  }, [refetch]);
+  
+  const handleOpenChat = (userId) => {
+    navigate(`/messages/${userId}`);
+  };
+  
+  // Filter conversations based on search term
+  const filteredConversations = data?.content.filter((conversation) => {
+    const username = conversation.user.username.toLowerCase();
+    const fullName = conversation.user.fullName.toLowerCase();
+    const searchLower = searchTerm.toLowerCase();
+    
+    return username.includes(searchLower) || fullName.includes(searchLower);
+  }) || [];
+  
+  // Format the last activity time
+  const formatLastActivity = (dateTime) => {
+    if (!dateTime) return '';
+    
+    const date = new Date(dateTime);
+    const now = new Date();
+    
+    // If today, show time
+    if (date.toDateString() === now.toDateString()) {
+      return format(date, 'h:mm a');
+    }
+    
+    // If this year, show month and day
+    if (date.getFullYear() === now.getFullYear()) {
+      return format(date, 'MMM d');
+    }
+    
+    // Otherwise, show month, day, and year
+    return format(date, 'MMM d, yyyy');
+  };
+  
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center h-full">
+        <CircularProgress />
+      </div>
+    );
+  }
+  
+  if (error) {
+    return (
+      <div className="flex flex-col items-center justify-center h-full">
+        <Typography variant="h6" color="error" gutterBottom>
+          Error loading conversations
+        </Typography>
+        <Typography variant="body2" color="textSecondary">
+          {error.response?.data?.message || 'Unable to load conversations'}
+        </Typography>
+      </div>
+    );
+  }
+  
+  return (
+    <div className="container mx-auto max-w-3xl">
+      <Paper elevation={2} className="mb-4 p-4">
+        <Typography variant="h6" className="mb-4">Messages</Typography>
+        
+        <TextField
+          fullWidth
+          placeholder="Search conversations..."
+          variant="outlined"
+          size="small"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="mb-4"
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <SearchIcon />
+              </InputAdornment>
+            ),
+          }}
+        />
+        
+        <Divider className="mb-4" />
+        
+        {filteredConversations.length === 0 ? (
+          <div className="flex flex-col items-center justify-center py-8">
+            <Typography variant="body1" className="text-gray-500">
+              {searchTerm ? 'No conversations match your search' : 'No conversations yet'}
+            </Typography>
+          </div>
+        ) : (
+          <List className="p-0">
+            {filteredConversations.map((conversation) => (
+              <div key={conversation.user.id}>
+                <ListItem 
+                  button 
+                  alignItems="flex-start"
+                  onClick={() => handleOpenChat(conversation.user.id)}
+                  className="hover:bg-gray-50 dark:hover:bg-gray-700 rounded-lg mb-1"
+                >
+                  <ListItemAvatar>
+                    <Badge
+                      overlap="circular"
+                      badgeContent={conversation.unreadCount > 0 ? conversation.unreadCount : 0}
+                      color="primary"
+                      invisible={conversation.unreadCount === 0}
+                    >
+                      <Avatar src={conversation.user.avatarUrl} alt={conversation.user.username} />
+                    </Badge>
+                  </ListItemAvatar>
+                  <ListItemText
+                    primary={
+                      <div className="flex justify-between">
+                        <Typography variant="subtitle1" className="font-medium">
+                          {conversation.user.fullName}
+                        </Typography>
+                        <Typography variant="caption" className="text-gray-500">
+                          {formatLastActivity(conversation.lastActivity)}
+                        </Typography>
+                      </div>
+                    }
+                    secondary={
+                      <div className="flex items-center">
+                        {conversation.unreadCount > 0 && (
+                          <CircleIcon className="text-primary mr-1" style={{ fontSize: 8 }} />
+                        )}
+                        <Typography
+                          variant="body2"
+                          className={`truncate ${conversation.unreadCount > 0 ? 'font-medium' : 'text-gray-500'}`}
+                          style={{ maxWidth: '240px' }}
+                        >
+                          {conversation.latestMessage?.content || 'No messages yet'}
+                        </Typography>
+                      </div>
+                    }
+                  />
+                </ListItem>
+                <Divider component="li" />
+              </div>
+            ))}
+          </List>
+        )}
+      </Paper>
+    </div>
+  );
+};
+
+export default Conversations;
+
+================
+File: frontend/src/pages/EditProfile.jsx
+================
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
+import { 
+  Typography, 
+  Paper, 
+  CircularProgress, 
+  Button, 
+  Avatar,
+  IconButton,
+  TextField,
+  Divider
+} from '@mui/material';
+import { 
+  ArrowBack as ArrowBackIcon,
+  PhotoCamera as PhotoCameraIcon,
+  Save as SaveIcon,
+} from '@mui/icons-material';
+import { useMutation } from '@tanstack/react-query';
+import { toast } from 'react-toastify';
+import { motion } from 'framer-motion';
+
+import { userService } from '../services/api';
+import { updateUser } from '../store/slices/authSlice';
+
+const profileSchema = Yup.object().shape({
+  username: Yup.string()
+    .min(3, 'Username must be at least 3 characters')
+    .max(50, 'Username must be less than 50 characters')
+    .matches(/^[a-zA-Z0-9_]+$/, 'Username can only contain letters, numbers, and underscores')
+    .required('Username is required'),
+  fullName: Yup.string()
+    .max(100, 'Full name must be less than 100 characters')
+    .required('Full name is required'),
+  bio: Yup.string()
+    .max(500, 'Bio must be less than 500 characters'),
+  websiteUrl: Yup.string()
+    .url('Must be a valid URL')
+    .max(255, 'Website URL must be less than 255 characters'),
+  location: Yup.string()
+    .max(100, 'Location must be less than 100 characters'),
+});
+
+const EditProfile = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { user } = useSelector(state => state.auth);
+  const [avatarFile, setAvatarFile] = useState(null);
+  const [avatarPreview, setAvatarPreview] = useState(user?.avatarUrl || '');
+  const [initialValues, setInitialValues] = useState({
+    username: user?.username || '',
+    fullName: user?.fullName || '',
+    bio: '',
+    websiteUrl: '',
+    location: '',
+  });
+  
+  // Fetch current profile data
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const profile = await userService.getProfile(user.id);
+        setInitialValues({
+          username: profile.username,
+          fullName: profile.fullName,
+          bio: profile.bio || '',
+          websiteUrl: profile.websiteUrl || '',
+          location: profile.location || '',
+        });
+        
+        if (profile.avatarUrl) {
+          setAvatarPreview(profile.avatarUrl);
+        }
+      } catch (error) {
+        toast.error('Failed to fetch profile data');
+      }
+    };
+    
+    if (user?.id) {
+      fetchProfile();
+    }
+  }, [user]);
+  
+  // Update profile mutation
+  const updateProfileMutation = useMutation({
+    mutationFn: (profileData) => userService.updateProfile(profileData),
+    onSuccess: (data) => {
+        // Update user in Redux store
+        dispatch(updateUser({
+          username: data.username,
+          fullName: data.fullName,
+        }));
+        
+        toast.success('Profile updated successfully');
+        navigate(`/profile/${user.id}`);
+      },
+      onError: (error) => {
+        toast.error(error.response?.data?.message || 'Failed to update profile');
+      },
+    
+  });
+  
+  // Upload avatar mutation
+  const uploadAvatarMutation = useMutation({
+    mutationFn: (file) => userService.uploadAvatar(file),
+    onSuccess: (data) => {
+        // Update avatar URL in Redux store
+        dispatch(updateUser({ avatarUrl: data.avatarUrl }));
+        toast.success('Avatar uploaded successfully');
+      },
+      onError: (error) => {
+        toast.error(error.response?.data?.message || 'Failed to upload avatar');
+      },
+  });
+  
+  const handleAvatarChange = (event) => {
+    const file = event.target.files[0];
+    
+    if (!file) return;
+    
+    // Validate file size and type
+    if (file.size > 5 * 1024 * 1024) {
+      toast.error('File size must be less than 5MB');
+      return;
+    }
+    
+    if (!file.type.startsWith('image/')) {
+      toast.error('Only image files are allowed');
+      return;
+    }
+    
+    setAvatarFile(file);
+    
+    // Create preview
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setAvatarPreview(reader.result);
+    };
+    reader.readAsDataURL(file);
+  };
+  
+  const handleSubmit = async (values) => {
+    try {
+      // First upload avatar if selected
+      if (avatarFile) {
+        await uploadAvatarMutation.mutateAsync(avatarFile);
+      }
+      
+      // Then update profile data
+      await updateProfileMutation.mutateAsync(values);
+    } catch (error) {
+      // Error is already handled in mutations
+    }
+  };
+  
+  const goBack = () => {
+    navigate(`/profile/${user.id}`);
+  };
+  
+  const isLoading = updateProfileMutation.isLoading || uploadAvatarMutation.isLoading;
+  
+  return (
+    <div className="container mx-auto max-w-3xl">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3 }}
+      >
+        <Paper elevation={2} className="mb-4 p-6">
+          <div className="flex items-center mb-4">
+            <IconButton onClick={goBack} className="mr-2">
+              <ArrowBackIcon />
+            </IconButton>
+            <Typography variant="h6">Edit Profile</Typography>
+          </div>
+          
+          <Divider className="mb-6" />
+          
+          {/* Avatar Upload Section */}
+          <div className="flex flex-col items-center mb-6">
+            <div className="relative">
+              <Avatar
+                src={avatarPreview}
+                alt={user?.username}
+                className="w-24 h-24 mb-2"
+              />
+              <input
+                accept="image/*"
+                className="hidden"
+                id="avatar-upload"
+                type="file"
+                onChange={handleAvatarChange}
+                disabled={isLoading}
+              />
+              <label htmlFor="avatar-upload">
+                <IconButton
+                  color="primary"
+                  aria-label="upload avatar"
+                  component="span"
+                  className="absolute bottom-0 right-0 bg-white dark:bg-gray-800 shadow-md"
+                  disabled={isLoading}
+                >
+                  <PhotoCameraIcon />
+                </IconButton>
+              </label>
+            </div>
+            <Typography variant="caption" className="text-gray-500 mt-2">
+              Click the camera icon to change your profile picture
+            </Typography>
+          </div>
+          
+          {/* Profile Form */}
+          <Formik
+            enableReinitialize
+            initialValues={initialValues}
+            validationSchema={profileSchema}
+            onSubmit={handleSubmit}
+          >
+            {({ errors, touched, isValid, dirty }) => (
+              <Form className="space-y-4">
+                <div>
+                  <Typography variant="subtitle2" className="mb-1">
+                    Username
+                  </Typography>
+                  <Field
+                    as={TextField}
+                    name="username"
+                    fullWidth
+                    variant="outlined"
+                    size="small"
+                    error={touched.username && !!errors.username}
+                    helperText={touched.username && errors.username}
+                  />
+                </div>
+                
+                <div>
+                  <Typography variant="subtitle2" className="mb-1">
+                    Full Name
+                  </Typography>
+                  <Field
+                    as={TextField}
+                    name="fullName"
+                    fullWidth
+                    variant="outlined"
+                    size="small"
+                    error={touched.fullName && !!errors.fullName}
+                    helperText={touched.fullName && errors.fullName}
+                  />
+                </div>
+                
+                <div>
+                  <Typography variant="subtitle2" className="mb-1">
+                    Bio
+                  </Typography>
+                  <Field
+                    as={TextField}
+                    name="bio"
+                    fullWidth
+                    variant="outlined"
+                    size="small"
+                    multiline
+                    rows={4}
+                    error={touched.bio && !!errors.bio}
+                    helperText={touched.bio && errors.bio}
+                  />
+                </div>
+                
+                <div>
+                  <Typography variant="subtitle2" className="mb-1">
+                    Website
+                  </Typography>
+                  <Field
+                    as={TextField}
+                    name="websiteUrl"
+                    fullWidth
+                    variant="outlined"
+                    size="small"
+                    error={touched.websiteUrl && !!errors.websiteUrl}
+                    helperText={touched.websiteUrl && errors.websiteUrl}
+                  />
+                </div>
+                
+                <div>
+                  <Typography variant="subtitle2" className="mb-1">
+                    Location
+                  </Typography>
+                  <Field
+                    as={TextField}
+                    name="location"
+                    fullWidth
+                    variant="outlined"
+                    size="small"
+                    error={touched.location && !!errors.location}
+                    helperText={touched.location && errors.location}
+                  />
+                </div>
+                
+                <div className="pt-4 flex justify-end">
+                  <Button
+                    variant="outlined"
+                    onClick={goBack}
+                    className="mr-2"
+                    disabled={isLoading}
+                  >
+                    Cancel
+                  </Button>
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    color="primary"
+                    startIcon={isLoading ? <CircularProgress size={20} /> : <SaveIcon />}
+                    disabled={isLoading || (!dirty && !avatarFile) || !isValid}
+                  >
+                    {isLoading ? 'Saving...' : 'Save Changes'}
+                  </Button>
+                </div>
+              </Form>
+            )}
+          </Formik>
+        </Paper>
+      </motion.div>
+    </div>
+  );
+};
+
+export default EditProfile;
+
+================
+File: frontend/src/pages/EmailVerification.jsx
+================
+import { useState, useEffect } from 'react';
+import { useNavigate, useLocation, Link } from 'react-router-dom';
+import { 
+  Typography, 
+  Paper, 
+  Button, 
+  CircularProgress,
+  Alert
+} from '@mui/material';
+import { 
+  MarkEmailRead as MarkEmailReadIcon,
+  Error as ErrorIcon,
+  ArrowBack as ArrowBackIcon,
+  Home as HomeIcon
+} from '@mui/icons-material';
+import { useMutation } from '@tanstack/react-query';
+import { motion } from 'framer-motion';
+
+import { authService } from '../services/api';
+
+const EmailVerification = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [token, setToken] = useState('');
+  const [verificationStatus, setVerificationStatus] = useState('loading'); // loading, success, error
+  
+  // Extract token from URL query parameter
+  useEffect(() => {
+    const searchParams = new URLSearchParams(location.search);
+    const tokenParam = searchParams.get('token');
+    
+    if (!tokenParam) {
+      setVerificationStatus('error');
+    } else {
+      setToken(tokenParam);
+      // Attempt to verify the token
+      verifyEmailMutation.mutate(tokenParam);
+    }
+  }, [location]);
+  
+  // Verify email mutation
+  const verifyEmailMutation = useMutation({
+    mutationFn: (token) => authService.verifyEmail(token),
+    onSuccess: (data) => {
+        setVerificationStatus('success');
+      },
+      onError: (error) => {
+        setVerificationStatus('error');
+      },
+    
+  });
+  
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 p-4">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="w-full max-w-md"
+      >
+        <Paper elevation={3} className="p-8 bg-white dark:bg-gray-800">
+          {verificationStatus === 'loading' && (
+            <div className="text-center py-8">
+              <CircularProgress className="mb-4" />
+              <Typography variant="h6">
+                Verifying your email...
+              </Typography>
+            </div>
+          )}
+          
+          {verificationStatus === 'success' && (
+            <div className="text-center">
+              <MarkEmailReadIcon className="text-green-500 mb-4" style={{ fontSize: 72 }} />
+              <Typography variant="h5" className="font-bold mb-2">
+                Email Verified Successfully
+              </Typography>
+              <Typography variant="body1" className="mb-6">
+                Your email has been verified. You can now enjoy all features of the platform.
+              </Typography>
+              
+              <div className="flex flex-col space-y-3">
+                <Button
+                  variant="contained"
+                  color="primary"
+                  component={Link}
+                  to="/"
+                  startIcon={<HomeIcon />}
+                >
+                  Go to Home
+                </Button>
+                
+                <Button
+                  variant="outlined"
+                  component={Link}
+                  to="/login"
+                  startIcon={<ArrowBackIcon />}
+                >
+                  Back to Login
+                </Button>
+              </div>
+            </div>
+          )}
+          
+          {verificationStatus === 'error' && (
+            <div className="text-center">
+              <ErrorIcon className="text-red-500 mb-4" style={{ fontSize: 72 }} />
+              <Typography variant="h5" className="font-bold mb-2">
+                Verification Failed
+              </Typography>
+              
+              <Alert severity="error" className="mb-6">
+                The verification link is invalid or has expired.
+              </Alert>
+              
+              <Typography variant="body1" className="mb-6">
+                Please try logging in to request a new verification email.
+              </Typography>
+              
+              <div className="flex flex-col space-y-3">
+                <Button
+                  variant="contained"
+                  color="primary"
+                  component={Link}
+                  to="/login"
+                >
+                  Go to Login
+                </Button>
+              </div>
+            </div>
+          )}
+        </Paper>
+      </motion.div>
+    </div>
+  );
+};
+
+export default EmailVerification;
+
+================
+File: frontend/src/pages/Followers.jsx
+================
+import { useState, useRef, useCallback } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import { 
+  Typography, 
+  Paper, 
+  Button, 
+  CircularProgress, 
+  Divider,
+  IconButton
+} from '@mui/material';
+import { ArrowBack as ArrowBackIcon } from '@mui/icons-material';
+import { useInfiniteQuery } from '@tanstack/react-query';
+
+import { followService } from '../services/api';
+import UserCard from '../components/UserCard';
+
+const Followers = () => {
+  const { userId } = useParams();
+  const navigate = useNavigate();
+  const observer = useRef();
+  
+  // Fetch followers
+  const {
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    isLoading,
+    error
+  } = useInfiniteQuery(
+    ['followers', userId],
+    ({ pageParam = 0 }) => followService.getFollowers(userId, pageParam, 10),
+    {
+      getNextPageParam: (lastPage) => {
+        if (lastPage.last) return undefined;
+        return lastPage.pageable.pageNumber + 1;
+      },
+      staleTime: 30000, // 30 seconds
+    }
+  );
+  
+  // Infinite scroll implementation
+  const lastElementRef = useCallback(
+    (node) => {
+      if (isLoading || isFetchingNextPage) return;
+      if (observer.current) observer.current.disconnect();
+      
+      observer.current = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting && hasNextPage) {
+          fetchNextPage();
+        }
+      });
+      
+      if (node) observer.current.observe(node);
+    },
+    [isLoading, isFetchingNextPage, hasNextPage, fetchNextPage]
+  );
+  
+  const goBack = () => {
+    navigate(`/profile/${userId}`);
+  };
+  
+  if (isLoading && !isFetchingNextPage) {
+    return (
+      <div className="flex items-center justify-center h-full">
+        <CircularProgress />
+      </div>
+    );
+  }
+  
+  if (error) {
+    return (
+      <div className="flex flex-col items-center justify-center h-full">
+        <Typography variant="h6" color="error" gutterBottom>
+          Error loading followers
+        </Typography>
+        <Typography variant="body2" color="textSecondary">
+          {error.response?.data?.message || 'Unable to load followers'}
+        </Typography>
+        <Button 
+          variant="outlined" 
+          color="primary" 
+          className="mt-4"
+          onClick={goBack}
+        >
+          Go Back to Profile
+        </Button>
+      </div>
+    );
+  }
+  
+  const followers = data?.pages.flatMap((page) => page.content) || [];
+  
+  return (
+    <div className="container mx-auto max-w-3xl">
+      <Paper elevation={2} className="mb-4 p-4">
+        <div className="flex items-center mb-4">
+          <IconButton onClick={goBack} className="mr-2">
+            <ArrowBackIcon />
+          </IconButton>
+          <Typography variant="h6">Followers</Typography>
+        </div>
+        
+        <Divider className="mb-4" />
+        
+        {followers.length === 0 ? (
+          <div className="flex flex-col items-center justify-center py-8">
+            <Typography variant="body1" className="text-gray-500">
+              No followers yet
+            </Typography>
+          </div>
+        ) : (
+          <div className="space-y-4">
+            {followers.map((follower, index) => {
+              if (index === followers.length - 1) {
+                return (
+                  <div key={follower.id} ref={lastElementRef}>
+                    <UserCard user={follower} />
+                  </div>
+                );
+              } else {
+                return (
+                  <div key={follower.id}>
+                    <UserCard user={follower} />
+                  </div>
+                );
+              }
+            })}
+            {isFetchingNextPage && (
+              <div className="flex justify-center py-4">
+                <CircularProgress size={24} />
+              </div>
+            )}
+          </div>
+        )}
+      </Paper>
+    </div>
+  );
+};
+
+export default Followers;
+
+================
+File: frontend/src/pages/Following.jsx
+================
+import { useState, useRef, useCallback } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import { 
+  Typography, 
+  Paper, 
+  Button, 
+  CircularProgress, 
+  Divider,
+  IconButton
+} from '@mui/material';
+import { ArrowBack as ArrowBackIcon } from '@mui/icons-material';
+import { useInfiniteQuery } from '@tanstack/react-query';
+
+import { followService } from '../services/api';
+import UserCard from '../components/UserCard';
+
+const Following = () => {
+  const { userId } = useParams();
+  const navigate = useNavigate();
+  const observer = useRef();
+  
+  // Fetch following
+  const {
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    isLoading,
+    error
+  } = useInfiniteQuery(
+    ['following', userId],
+    ({ pageParam = 0 }) => followService.getFollowing(userId, pageParam, 10),
+    {
+      getNextPageParam: (lastPage) => {
+        if (lastPage.last) return undefined;
+        return lastPage.pageable.pageNumber + 1;
+      },
+      staleTime: 30000, // 30 seconds
+    }
+  );
+  
+  // Infinite scroll implementation
+  const lastElementRef = useCallback(
+    (node) => {
+      if (isLoading || isFetchingNextPage) return;
+      if (observer.current) observer.current.disconnect();
+      
+      observer.current = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting && hasNextPage) {
+          fetchNextPage();
+        }
+      });
+      
+      if (node) observer.current.observe(node);
+    },
+    [isLoading, isFetchingNextPage, hasNextPage, fetchNextPage]
+  );
+  
+  const goBack = () => {
+    navigate(`/profile/${userId}`);
+  };
+  
+  if (isLoading && !isFetchingNextPage) {
+    return (
+      <div className="flex items-center justify-center h-full">
+        <CircularProgress />
+      </div>
+    );
+  }
+  
+  if (error) {
+    return (
+      <div className="flex flex-col items-center justify-center h-full">
+        <Typography variant="h6" color="error" gutterBottom>
+          Error loading following
+        </Typography>
+        <Typography variant="body2" color="textSecondary">
+          {error.response?.data?.message || 'Unable to load following'}
+        </Typography>
+        <Button 
+          variant="outlined" 
+          color="primary" 
+          className="mt-4"
+          onClick={goBack}
+        >
+          Go Back to Profile
+        </Button>
+      </div>
+    );
+  }
+  
+  const following = data?.pages.flatMap((page) => page.content) || [];
+  
+  return (
+    <div className="container mx-auto max-w-3xl">
+      <Paper elevation={2} className="mb-4 p-4">
+        <div className="flex items-center mb-4">
+          <IconButton onClick={goBack} className="mr-2">
+            <ArrowBackIcon />
+          </IconButton>
+          <Typography variant="h6">Following</Typography>
+        </div>
+        
+        <Divider className="mb-4" />
+        
+        {following.length === 0 ? (
+          <div className="flex flex-col items-center justify-center py-8">
+            <Typography variant="body1" className="text-gray-500">
+              Not following anyone yet
+            </Typography>
+          </div>
+        ) : (
+          <div className="space-y-4">
+            {following.map((user, index) => {
+              if (index === following.length - 1) {
+                return (
+                  <div key={user.id} ref={lastElementRef}>
+                    <UserCard user={user} />
+                  </div>
+                );
+              } else {
+                return (
+                  <div key={user.id}>
+                    <UserCard user={user} />
+                  </div>
+                );
+              }
+            })}
+            {isFetchingNextPage && (
+              <div className="flex justify-center py-4">
+                <CircularProgress size={24} />
+              </div>
+            )}
+          </div>
+        )}
+      </Paper>
+    </div>
+  );
+};
+
+export default Following;
+
+================
+File: frontend/src/pages/ForgotPassword.jsx
+================
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
+import { 
+  Typography, 
+  Paper, 
+  Button, 
+  CircularProgress,
+  TextField,
+  Alert
+} from '@mui/material';
+import { 
+  LockReset as LockResetIcon,
+  ArrowBack as ArrowBackIcon
+} from '@mui/icons-material';
+import { useMutation } from '@tanstack/react-query';
+import { toast } from 'react-toastify';
+import { motion } from 'framer-motion';
+
+import { authService } from '../services/api';
+
+const forgotPasswordSchema = Yup.object().shape({
+  email: Yup.string()
+    .email('Invalid email')
+    .required('Email is required'),
+});
+
+const ForgotPassword = () => {
+  const [resetEmailSent, setResetEmailSent] = useState(false);
+  
+  // Request password reset mutation
+  const resetMutation = useMutation({
+    mutationFn: (email) => authService.forgotPassword(email),
+    onSuccess: () => {
+      setResetEmailSent(true);
+      toast.success('Password reset instructions sent to your email');
+    },
+    onError: (error) => {
+      toast.error(error.response?.data?.message || 'Failed to send reset instructions');
+    },
+  });
+  
+  const handleSubmit = async (values) => {
+    resetMutation.mutate(values.email);
+  };
+  
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 p-4">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="w-full max-w-md"
+      >
+        <Paper elevation={3} className="p-8 bg-white dark:bg-gray-800">
+          <div className="text-center mb-6">
+            <LockResetIcon className="text-primary mb-2" style={{ fontSize: 48 }} />
+            <Typography variant="h5" className="font-bold">
+              Forgot Password
+            </Typography>
+            <Typography variant="subtitle1" className="text-gray-600 dark:text-gray-300">
+              Enter your email to reset your password
+            </Typography>
+          </div>
+          
+          {resetEmailSent ? (
+            <div className="space-y-4">
+              <Alert severity="success" className="mb-4">
+                If your email exists in our system, you will receive password reset instructions shortly.
+              </Alert>
+              
+              <Typography variant="body2" className="text-gray-600 dark:text-gray-300 text-center">
+                Check your email inbox and spam folder for instructions to reset your password.
+              </Typography>
+              
+              <div className="mt-6 text-center">
+                <Button
+                  variant="outlined"
+                  startIcon={<ArrowBackIcon />}
+                  component={Link}
+                  to="/login"
+                  fullWidth
+                >
+                  Back to Login
+                </Button>
+              </div>
+            </div>
+          ) : (
+            <Formik
+              initialValues={{ email: '' }}
+              validationSchema={forgotPasswordSchema}
+              onSubmit={handleSubmit}
+            >
+              {({ errors, touched }) => (
+                <Form className="space-y-4">
+                  <div>
+                    <Field
+                      as={TextField}
+                      name="email"
+                      type="email"
+                      label="Email Address"
+                      fullWidth
+                      variant="outlined"
+                      error={touched.email && !!errors.email}
+                      helperText={touched.email && errors.email}
+                    />
+                  </div>
+                  
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    color="primary"
+                    fullWidth
+                    disabled={resetMutation.isLoading}
+                    className="mt-4"
+                  >
+                    {resetMutation.isLoading ? (
+                      <CircularProgress size={24} className="text-white" />
+                    ) : (
+                      'Send Reset Instructions'
+                    )}
+                  </Button>
+                  
+                  <div className="mt-4 text-center">
+                    <Typography variant="body2" className="text-gray-600 dark:text-gray-300">
+                      Remembered your password?{' '}
+                      <Link to="/login" className="text-primary hover:underline">
+                        Back to Login
+                      </Link>
+                    </Typography>
+                  </div>
+                </Form>
+              )}
+            </Formik>
+          )}
+        </Paper>
+      </motion.div>
+    </div>
+  );
+};
+
+export default ForgotPassword;
+
+================
+File: frontend/src/pages/Home.jsx
+================
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { 
+  Typography, 
+  Paper, 
+  Grid, 
+  Card, 
+  CardContent,
+  Avatar,
+  Divider,
+  Chip,
+  Box,
+  Container
+} from '@mui/material';
+import { 
+  Person as PersonIcon,
+  Message as MessageIcon,
+  Notifications as NotificationsIcon,
+  Settings as SettingsIcon,
+  Code as CodeIcon,
+  School as SchoolIcon,
+  Groups as GroupsIcon,
+  EmojiEvents as EmojiEventsIcon
+} from '@mui/icons-material';
+import { motion } from 'framer-motion';
+
+const Home = () => {
+  const navigate = useNavigate();
+  const { user } = useSelector(state => state.auth);
+  const [greeting, setGreeting] = useState('');
+  
+  // Set greeting based on time of day
+  useEffect(() => {
+    const hours = new Date().getHours();
+    
+    if (hours < 12) {
+      setGreeting('Good morning');
+    } else if (hours < 18) {
+      setGreeting('Good afternoon');
+    } else {
+      setGreeting('Good evening');
+    }
+  }, []);
+  
+  // Navigation cards for main app sections
+  const navigationCards = [
+    {
+      title: 'Profile',
+      description: 'View and edit your profile information',
+      icon: <PersonIcon fontSize="large" sx={{ color: '#3b82f6' }} />,
+      action: () => navigate(`/profile/${user.id}`),
+      color: 'rgba(59, 130, 246, 0.1)'
+    },
+    {
+      title: 'Messages',
+      description: 'Chat with other professionals',
+      icon: <MessageIcon fontSize="large" sx={{ color: '#22c55e' }} />,
+      action: () => navigate('/messages'),
+      color: 'rgba(34, 197, 94, 0.1)'
+    },
+    {
+      title: 'Notifications',
+      description: 'Check your latest updates',
+      icon: <NotificationsIcon fontSize="large" sx={{ color: '#f59e0b' }} />,
+      action: () => navigate('/notifications'),
+      color: 'rgba(245, 158, 11, 0.1)'
+    },
+    {
+      title: 'Settings',
+      description: 'Customize your account preferences',
+      icon: <SettingsIcon fontSize="large" sx={{ color: '#a855f7' }} />,
+      action: () => navigate('/settings'),
+      color: 'rgba(168, 85, 247, 0.1)'
+    }
+  ];
+  
+  // Feature preview cards
+  const upcomingFeatures = [
+    {
+      title: 'Skills Showcase',
+      description: 'Display your technical skills and expertise',
+      icon: <CodeIcon fontSize="large" sx={{ color: '#6366f1' }} />,
+      badge: 'Coming Soon'
+    },
+    {
+      title: 'Learning Paths',
+      description: 'Track your professional development journey',
+      icon: <SchoolIcon fontSize="large" sx={{ color: '#ef4444' }} />,
+      badge: 'Coming Soon'
+    },
+    {
+      title: 'Communities',
+      description: 'Join groups based on interests and technologies',
+      icon: <GroupsIcon fontSize="large" sx={{ color: '#14b8a6' }} />,
+      badge: 'Coming Soon'
+    },
+    {
+      title: 'Challenges',
+      description: 'Participate in coding challenges and competitions',
+      icon: <EmojiEventsIcon fontSize="large" sx={{ color: '#f97316' }} />,
+      badge: 'Coming Soon'
+    }
+  ];
+  
+  // Animation variants for staggered animations
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  };
+  
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        duration: 0.3
+      }
+    }
+  };
+  
+  return (
+    <Container maxWidth="lg" sx={{ py: 4 }}>
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+      >
+        <Paper 
+          elevation={2} 
+          sx={{ 
+            mb: 4, 
+            p: 3, 
+            display: 'flex',
+            flexDirection: { xs: 'column', sm: 'row' },
+            alignItems: { xs: 'center', sm: 'flex-start' },
+            justifyContent: 'flex-start',
+            gap: 3
+          }}
+        >
+          <Avatar 
+            src={user?.avatarUrl} 
+            alt={user?.username}
+            sx={{ 
+              width: 64, 
+              height: 64
+            }}
+          />
+          <Box sx={{ textAlign: { xs: 'center', sm: 'left' } }}>
+            <Typography variant="h5" sx={{ fontWeight: 'bold' }}>
+              {greeting}, {user?.fullName}!
+            </Typography>
+            <Typography variant="subtitle1" sx={{ color: 'text.secondary', mt: 1 }}>
+              Welcome to Zircuit - Connect with IT professionals
+            </Typography>
+          </Box>
+        </Paper>
+      </motion.div>
+      
+      <Box sx={{ mb: 3 }}>
+        <Typography variant="h5" sx={{ fontWeight: 'bold', mb: 2 }}>
+          Quick Navigation
+        </Typography>
+        
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+        >
+          <Grid container spacing={2} sx={{ mb: 4 }}>
+            {navigationCards.map((card, index) => (
+              <Grid item xs={12} sm={6} md={3} key={index}>
+                <motion.div variants={itemVariants} style={{ height: '100%' }}>
+                  <Card 
+                    sx={{ 
+                      height: '100%', 
+                      cursor: 'pointer', 
+                      transition: 'box-shadow 0.3s', 
+                      '&:hover': { boxShadow: 4 },
+                      backgroundColor: card.color
+                    }}
+                    onClick={card.action}
+                  >
+                    <CardContent sx={{ 
+                      display: 'flex', 
+                      flexDirection: 'column', 
+                      alignItems: 'center', 
+                      textAlign: 'center', 
+                      p: 2.5 
+                    }}>
+                      <Box sx={{ mb: 2 }}>
+                        {card.icon}
+                      </Box>
+                      <Typography variant="h6" sx={{ mb: 1 }}>
+                        {card.title}
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary">
+                        {card.description}
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              </Grid>
+            ))}
+          </Grid>
+        </motion.div>
+      </Box>
+      
+      <Divider sx={{ my: 4 }} />
+      
+      <Box sx={{ mb: 3 }}>
+        <Typography variant="h5" sx={{ fontWeight: 'bold', mb: 2 }}>
+          Upcoming Features
+        </Typography>
+        
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          transition={{ delay: 0.3 }}
+        >
+          <Grid container spacing={2}>
+            {upcomingFeatures.map((feature, index) => (
+              <Grid item xs={12} sm={6} md={3} key={index}>
+                <motion.div variants={itemVariants} style={{ height: '100%' }}>
+                  <Card sx={{ height: '100%' }}>
+                    <CardContent sx={{ 
+                      display: 'flex', 
+                      flexDirection: 'column', 
+                      alignItems: 'center', 
+                      textAlign: 'center', 
+                      p: 2.5 
+                    }}>
+                      <Chip 
+                        label={feature.badge} 
+                        color="primary" 
+                        size="small" 
+                        sx={{ mb: 2 }}
+                      />
+                      <Box sx={{ mb: 2 }}>
+                        {feature.icon}
+                      </Box>
+                      <Typography variant="h6" sx={{ mb: 1 }}>
+                        {feature.title}
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary">
+                        {feature.description}
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              </Grid>
+            ))}
+          </Grid>
+        </motion.div>
+      </Box>
+    </Container>
+  );
+};
+
+export default Home;
+
+================
+File: frontend/src/pages/Login.jsx
+================
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
+import { Button, Paper, Typography, Divider, CircularProgress } from '@mui/material';
+import { Google as GoogleIcon, Facebook as FacebookIcon, GitHub as GitHubIcon } from '@mui/icons-material';
+import { motion } from 'framer-motion';
+import { toast } from 'react-toastify';
+
+import { login } from '../store/slices/authSlice';
+
+const loginSchema = Yup.object().shape({
+  email: Yup.string()
+    .email('Invalid email')
+    .required('Email is required'),
+  password: Yup.string()
+    .required('Password is required'),
+});
+
+const Login = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { isLoading, error } = useSelector(state => state.auth);
+  const [socialLoading, setSocialLoading] = useState('');
+  
+  const handleLogin = async (values) => {
+    try {
+      await dispatch(login({
+        email: values.email,
+        password: values.password
+      })).unwrap();
+      
+      navigate('/');
+      toast.success('Login successful!');
+    } catch (err) {
+      toast.error(err || 'Login failed. Please check your credentials.');
+    }
+  };
+  
+  const handleSocialLogin = (provider) => {
+    setSocialLoading(provider);
+    
+    // Redirect to backend OAuth endpoint
+    window.location.href = `http://localhost:8080/api/auth/oauth2/${provider}`;
+  };
+  
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 p-4">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="w-full max-w-md"
+      >
+        <Paper elevation={3} className="p-8 bg-white dark:bg-gray-800">
+          <div className="text-center mb-6">
+            <Typography variant="h4" className="text-primary font-bold">
+              Zircuit
+            </Typography>
+            <Typography variant="subtitle1" className="text-gray-600 dark:text-gray-300">
+              Connect with professionals
+            </Typography>
+          </div>
+          
+          <Formik
+            initialValues={{ email: '', password: '' }}
+            validationSchema={loginSchema}
+            onSubmit={handleLogin}
+          >
+            {({ errors, touched }) => (
+              <Form className="space-y-4">
+                <div>
+                  <Field
+                    name="email"
+                    type="email"
+                    placeholder="Email"
+                    className={`input-field ${
+                      errors.email && touched.email ? 'border-red-500' : ''
+                    }`}
+                  />
+                  <ErrorMessage
+                    name="email"
+                    component="div"
+                    className="text-red-500 text-sm mt-1"
+                  />
+                </div>
+                <div>
+                  <Field
+                    name="password"
+                    type="password"
+                    placeholder="Password"
+                    className={`input-field ${
+                      errors.password && touched.password ? 'border-red-500' : ''
+                    }`}
+                  />
+                  <ErrorMessage
+                    name="password"
+                    component="div"
+                    className="text-red-500 text-sm mt-1"
+                  />
+                </div>
+                
+                <div className="flex justify-between items-center">
+                  <div className="flex items-center">
+                    <input
+                      id="remember-me"
+                      name="remember-me"
+                      type="checkbox"
+                      className="h-4 w-4 text-primary focus:ring-primary"
+                    />
+                    <label
+                      htmlFor="remember-me"
+                      className="ml-2 block text-sm text-gray-600 dark:text-gray-300"
+                    >
+                      Remember me
+                    </label>
+                  </div>
+                  <div>
+                    <Link
+                      to="/forgot-password"
+                      className="text-sm text-primary hover:underline"
+                    >
+                      Forgot password?
+                    </Link>
+                  </div>
+                </div>
+                
+                <Button
+                  type="submit"
+                  variant="contained"
+                  disabled={isLoading}
+                  fullWidth
+                  className="btn-primary"
+                >
+                  {isLoading ? (
+                    <CircularProgress size={24} className="text-white" />
+                  ) : (
+                    'Login'
+                  )}
+                </Button>
+              </Form>
+            )}
+          </Formik>
+          
+          <Divider className="my-6">or continue with</Divider>
+          
+          <div className="grid grid-cols-3 gap-4">
+            <Button
+              variant="outlined"
+              className="normal-case"
+              onClick={() => handleSocialLogin('google')}
+              disabled={!!socialLoading}
+              startIcon={socialLoading === 'google' ? <CircularProgress size={20} /> : <GoogleIcon />}
+            >
+              Google
+            </Button>
+            <Button
+              variant="outlined"
+              className="normal-case"
+              onClick={() => handleSocialLogin('facebook')}
+              disabled={!!socialLoading}
+              startIcon={socialLoading === 'facebook' ? <CircularProgress size={20} /> : <FacebookIcon />}
+            >
+              Facebook
+            </Button>
+            <Button
+              variant="outlined"
+              className="normal-case"
+              onClick={() => handleSocialLogin('github')}
+              disabled={!!socialLoading}
+              startIcon={socialLoading === 'github' ? <CircularProgress size={20} /> : <GitHubIcon />}
+            >
+              GitHub
+            </Button>
+          </div>
+          
+          <div className="mt-6 text-center">
+            <Typography variant="body2" className="text-gray-600 dark:text-gray-300">
+              Don't have an account?{' '}
+              <Link to="/register" className="text-primary hover:underline">
+                Register
+              </Link>
+            </Typography>
+          </div>
+        </Paper>
+      </motion.div>
+    </div>
+  );
+};
+
+export default Login;
+
+================
+File: frontend/src/pages/NotificationsPage.jsx
+================
+import { useState, useRef, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { 
+  Typography, 
+  Paper, 
+  CircularProgress, 
+  Divider,
+  List,
+  ListItem,
+  ListItemAvatar,
+  ListItemText,
+  Avatar,
+  Button,
+  IconButton,
+  FormControlLabel,
+  Switch
+} from '@mui/material';
+import { 
+  Notifications as NotificationsIcon,
+  Check as CheckIcon,
+  Person as PersonIcon,
+  Comment as CommentIcon,
+  Favorite as FavoriteIcon,
+  Message as MessageIcon
+} from '@mui/icons-material';
+import { useInfiniteQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import { format } from 'date-fns';
+import { toast } from 'react-toastify';
+
+import { notificationService } from '../services/api';
+import { markAllAsRead, resetNotifications } from '../store/slices/notificationSlice';
+
+const NotificationsPage = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const queryClient = useQueryClient();
+  const [unreadOnly, setUnreadOnly] = useState(false);
+  const observer = useRef();
+  
+  // Fetch notifications
+  const {
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    isLoading,
+    refetch,
+    error
+  } = useInfiniteQuery(
+    ['notifications', unreadOnly],
+    ({ pageParam = 0 }) => notificationService.getNotifications(unreadOnly, pageParam, 15),
+    {
+      getNextPageParam: (lastPage) => {
+        if (lastPage.last) return undefined;
+        return lastPage.pageable.pageNumber + 1;
+      },
+      staleTime: 10000, // 10 seconds
+    }
+  );
+  
+  // Mark notification as read mutation
+  const markAsReadMutation = useMutation({
+    mutationFn: (notificationId) => notificationService.markAsRead(notificationId),
+    onSuccess: () => {
+        queryClient.invalidateQueries(['notifications']);
+        dispatch(markAllAsRead());
+      },
+      onError: (error) => {
+        toast.error(error.response?.data?.message || 'Failed to mark notification as read');
+      },
+  });
+  
+  // Mark all notifications as read mutation
+  const markAllAsReadMutation = useMutation({
+    mutationFn: () => notificationService.markAllAsRead(),
+    onSuccess: () => {
+        queryClient.invalidateQueries(['notifications']);
+        dispatch(markAllAsRead());
+        toast.success('All notifications marked as read');
+      },
+      onError: (error) => {
+        toast.error(error.response?.data?.message || 'Failed to mark all notifications as read');
+      },
+  });
+  
+  // Infinite scroll implementation
+  const lastElementRef = useCallback(
+    (node) => {
+      if (isLoading || isFetchingNextPage) return;
+      if (observer.current) observer.current.disconnect();
+      
+      observer.current = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting && hasNextPage) {
+          fetchNextPage();
+        }
+      });
+      
+      if (node) observer.current.observe(node);
+    },
+    [isLoading, isFetchingNextPage, hasNextPage, fetchNextPage]
+  );
+  
+  const handleToggleUnreadOnly = () => {
+    setUnreadOnly(!unreadOnly);
+    // Reset notifications to fetch from the beginning
+    dispatch(resetNotifications());
+  };
+  
+  const handleMarkAsRead = (notificationId) => {
+    markAsReadMutation.mutate(notificationId);
+  };
+  
+  const handleMarkAllAsRead = () => {
+    markAllAsReadMutation.mutate();
+  };
+  
+  const handleNotificationClick = (notification) => {
+    // Mark as read first
+    if (!notification.isRead) {
+      markAsReadMutation.mutate(notification.id);
+    }
+    
+    // Navigate based on notification type
+    switch(notification.type) {
+      case 'FOLLOW':
+        navigate(`/profile/${notification.actor.id}`);
+        break;
+      case 'MESSAGE':
+        navigate(`/messages/${notification.actor.id}`);
+        break;
+      case 'LIKE':
+      case 'COMMENT':
+        // These would navigate to a post page in the future
+        navigate(`/profile/${notification.actor.id}`);
+        break;
+      default:
+        // Default action or system notifications
+        break;
+    }
+  };
+  
+  // Get the appropriate icon based on notification type
+  const getNotificationIcon = (type) => {
+    switch(type) {
+      case 'FOLLOW':
+        return <PersonIcon />;
+      case 'LIKE':
+        return <FavoriteIcon color="error" />;
+      case 'COMMENT':
+        return <CommentIcon color="primary" />;
+      case 'MESSAGE':
+        return <MessageIcon color="info" />;
+      default:
+        return <NotificationsIcon color="action" />;
+    }
+  };
+  
+  // Format notification time
+  const formatNotificationTime = (dateTime) => {
+    if (!dateTime) return '';
+    
+    const date = new Date(dateTime);
+    const now = new Date();
+    
+    // If less than 24 hours ago
+    const hoursDiff = Math.abs(now - date) / 36e5;
+    if (hoursDiff < 24) {
+      // If less than 1 hour ago
+      if (hoursDiff < 1) {
+        const minutesDiff = Math.floor(hoursDiff * 60);
+        return `${minutesDiff} min${minutesDiff === 1 ? '' : 's'} ago`;
+      }
+      
+      const hours = Math.floor(hoursDiff);
+      return `${hours} hour${hours === 1 ? '' : 's'} ago`;
+    }
+    
+    // If less than 7 days ago
+    const daysDiff = Math.floor(hoursDiff / 24);
+    if (daysDiff < 7) {
+      return `${daysDiff} day${daysDiff === 1 ? '' : 's'} ago`;
+    }
+    
+    // If this year
+    if (date.getFullYear() === now.getFullYear()) {
+      return format(date, 'MMM d');
+    }
+    
+    // Otherwise
+    return format(date, 'MMM d, yyyy');
+  };
+  
+  const notifications = data?.pages.flatMap((page) => page.content) || [];
+  const hasUnread = notifications.some((notification) => !notification.isRead);
+  
+  if (isLoading && !isFetchingNextPage) {
+    return (
+      <div className="flex items-center justify-center h-full">
+        <CircularProgress />
+      </div>
+    );
+  }
+  
+  return (
+    <div className="container mx-auto max-w-3xl">
+      <Paper elevation={2} className="mb-4 p-4">
+        <div className="flex items-center justify-between mb-4">
+          <Typography variant="h6">Notifications</Typography>
+          
+          <div className="flex items-center">
+            <FormControlLabel
+              control={
+                <Switch
+                  checked={unreadOnly}
+                  onChange={handleToggleUnreadOnly}
+                  color="primary"
+                />
+              }
+              label="Unread only"
+            />
+            
+            {hasUnread && (
+              <Button
+                variant="outlined"
+                size="small"
+                onClick={handleMarkAllAsRead}
+                startIcon={<CheckIcon />}
+                disabled={markAllAsReadMutation.isLoading}
+              >
+                Mark all as read
+              </Button>
+            )}
+          </div>
+        </div>
+        
+        <Divider className="mb-4" />
+        
+        {error ? (
+          <div className="flex flex-col items-center justify-center py-8">
+            <Typography variant="body1" color="error" gutterBottom>
+              Error loading notifications
+            </Typography>
+            <Typography variant="body2" className="text-gray-500 mb-4">
+              {error.response?.data?.message || 'Unable to load notifications'}
+            </Typography>
+            <Button 
+              variant="outlined" 
+              color="primary"
+              onClick={() => refetch()}
+            >
+              Try Again
+            </Button>
+          </div>
+        ) : notifications.length === 0 ? (
+          <div className="flex flex-col items-center justify-center py-8">
+            <NotificationsIcon className="text-gray-400 mb-2" style={{ fontSize: 48 }} />
+            <Typography variant="body1" className="text-gray-500">
+              {unreadOnly ? 'No unread notifications' : 'No notifications yet'}
+            </Typography>
+          </div>
+        ) : (
+          <List className="p-0">
+            {notifications.map((notification, index) => (
+              <div
+                key={notification.id}
+                ref={index === notifications.length - 1 ? lastElementRef : null}
+              >
+                <ListItem
+                  button
+                  onClick={() => handleNotificationClick(notification)}
+                  className={`hover:bg-gray-50 dark:hover:bg-gray-700 rounded-lg mb-1 ${
+                    !notification.isRead ? 'bg-blue-50 dark:bg-blue-900 bg-opacity-50' : ''
+                  }`}
+                >
+                  <ListItemAvatar>
+                    {notification.actor ? (
+                      <Avatar src={notification.actor.avatarUrl} alt={notification.actor.username} />
+                    ) : (
+                      <Avatar>{getNotificationIcon(notification.type)}</Avatar>
+                    )}
+                  </ListItemAvatar>
+                  <ListItemText
+                    primary={
+                      <div className="flex justify-between">
+                        <Typography
+                          variant="body1"
+                          className={`${!notification.isRead ? 'font-medium' : ''}`}
+                        >
+                          {notification.content}
+                        </Typography>
+                        <Typography variant="caption" className="text-gray-500">
+                          {formatNotificationTime(notification.createdAt)}
+                        </Typography>
+                      </div>
+                    }
+                  />
+                  
+                  {!notification.isRead && (
+                    <IconButton
+                      size="small"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        handleMarkAsRead(notification.id);
+                      }}
+                      className="ml-2"
+                      title="Mark as read"
+                    >
+                      <CheckIcon fontSize="small" />
+                    </IconButton>
+                  )}
+                </ListItem>
+                <Divider component="li" />
+              </div>
+            ))}
+            {isFetchingNextPage && (
+              <div className="flex justify-center py-4">
+                <CircularProgress size={24} />
+              </div>
+            )}
+          </List>
+        )}
+      </Paper>
+    </div>
+  );
+};
+
+export default NotificationsPage;
+
+================
+File: frontend/src/pages/Profile.jsx
+================
+import { useState } from 'react';
+import { useParams, useNavigate, Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { 
+  Avatar, 
+  Typography, 
+  Button, 
+  Paper, 
+  Tabs, 
+  Tab, 
+  Divider,
+  CircularProgress,
+  IconButton
+} from '@mui/material';
+import { 
+  Edit as EditIcon, 
+  Message as MessageIcon,
+  LocationOn as LocationIcon,
+  Language as LanguageIcon,
+  VerifiedUser as VerifiedIcon,
+  Person as PersonIcon
+} from '@mui/icons-material';
+import { useQuery } from '@tanstack/react-query';
+import { motion } from 'framer-motion';
+
+import { userService } from '../services/api';
+import FollowButton from '../components/FollowButton';
+
+const Profile = () => {
+  const { userId } = useParams();
+  const navigate = useNavigate();
+  const { user: currentUser } = useSelector(state => state.auth);
+  const [activeTab, setActiveTab] = useState(0);
+  
+  const isOwnProfile = currentUser?.id === userId;
+  
+  // Fetch user profile
+  const { data: profile, isLoading, error } = useQuery(
+    ['profile', userId],
+    () => userService.getProfile(userId),
+    {
+      enabled: !!userId,
+      staleTime: 30000, // 30 seconds
+    }
+  );
+  
+  const handleTabChange = (event, newValue) => {
+    setActiveTab(newValue);
+  };
+  
+  const handleEditProfile = () => {
+    navigate('/edit-profile');
+  };
+  
+  const handleMessage = () => {
+    navigate(`/messages/${userId}`);
+  };
+  
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center h-full">
+        <CircularProgress />
+      </div>
+    );
+  }
+  
+  if (error) {
+    return (
+      <div className="flex flex-col items-center justify-center h-full">
+        <Typography variant="h6" color="error" gutterBottom>
+          Error loading profile
+        </Typography>
+        <Typography variant="body2" color="textSecondary">
+          {error.response?.data?.message || 'Unable to load user profile'}
+        </Typography>
+        <Button 
+          variant="outlined" 
+          color="primary" 
+          className="mt-4"
+          onClick={() => navigate('/')}
+        >
+          Go Back Home
+        </Button>
+      </div>
+    );
+  }
+  
+  return (
+    <div className="container mx-auto max-w-4xl">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3 }}
+      >
+        <Paper elevation={2} className="mb-4 overflow-hidden">
+          {/* Cover Photo Area (placeholder for now) */}
+          <div className="h-32 bg-gradient-to-r from-blue-500 to-indigo-600"></div>
+          
+          {/* Profile Info Section */}
+          <div className="px-6 pb-6 relative">
+            {/* Avatar */}
+            <div className="absolute -top-16 left-6 border-4 border-white dark:border-gray-800 rounded-full">
+              <Avatar 
+                src={profile?.avatarUrl} 
+                alt={profile?.username}
+                className="w-32 h-32"
+              />
+            </div>
+            
+            {/* Action Buttons */}
+            <div className="flex justify-end pt-2">
+              {isOwnProfile ? (
+                <Button
+                  variant="outlined"
+                  startIcon={<EditIcon />}
+                  onClick={handleEditProfile}
+                >
+                  Edit Profile
+                </Button>
+              ) : (
+                <div className="flex space-x-2">
+                  <Button
+                    variant="outlined"
+                    startIcon={<MessageIcon />}
+                    onClick={handleMessage}
+                  >
+                    Message
+                  </Button>
+                  <FollowButton userId={userId} />
+                </div>
+              )}
+            </div>
+            
+            {/* User Info */}
+            <div className="mt-16">
+              <div className="flex items-center">
+                <Typography variant="h5" className="font-bold">
+                  {profile?.fullName}
+                </Typography>
+                {profile?.isVerified && (
+                  <VerifiedIcon className="ml-1 text-primary" />
+                )}
+              </div>
+              <Typography variant="body1" className="text-gray-600 dark:text-gray-300">
+                @{profile?.username}
+              </Typography>
+              
+              {profile?.bio && (
+                <Typography variant="body1" className="mt-2">
+                  {profile?.bio}
+                </Typography>
+              )}
+              
+              <div className="flex flex-wrap items-center mt-2 text-gray-600 dark:text-gray-300">
+                {profile?.location && (
+                  <div className="flex items-center mr-4">
+                    <LocationIcon fontSize="small" className="mr-1" />
+                    <Typography variant="body2">{profile.location}</Typography>
+                  </div>
+                )}
+                
+                {profile?.websiteUrl && (
+                  <div className="flex items-center">
+                    <LanguageIcon fontSize="small" className="mr-1" />
+                    <a
+                      href={profile.websiteUrl.startsWith('http') ? profile.websiteUrl : `https://${profile.websiteUrl}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-primary hover:underline"
+                    >
+                      <Typography variant="body2">
+                        {profile.websiteUrl.replace(/^https?:\/\//, '')}
+                      </Typography>
+                    </a>
+                  </div>
+                )}
+              </div>
+              
+              <div className="flex mt-4">
+                <Link to={`/followers/${userId}`} className="mr-4 hover:underline">
+                  <Typography variant="body2">
+                    <span className="font-bold">{profile?.followerCount}</span> Followers
+                  </Typography>
+                </Link>
+                <Link to={`/following/${userId}`} className="hover:underline">
+                  <Typography variant="body2">
+                    <span className="font-bold">{profile?.followingCount}</span> Following
+                  </Typography>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </Paper>
+        
+        {/* Tabs Section */}
+        <Paper elevation={2}>
+          <Tabs
+            value={activeTab}
+            onChange={handleTabChange}
+            variant="fullWidth"
+            indicatorColor="primary"
+            textColor="primary"
+          >
+            <Tab label="Overview" />
+            <Tab label="Skills" disabled />
+            <Tab label="Learning" disabled />
+          </Tabs>
+          
+          <Divider />
+          
+          <div className="p-6">
+            {activeTab === 0 && (
+              <div className="flex flex-col items-center justify-center py-8">
+                <PersonIcon className="text-gray-400 mb-2" style={{ fontSize: 48 }} />
+                <Typography variant="h6">Profile Overview</Typography>
+                <Typography variant="body2" className="text-gray-500 text-center mt-2 max-w-md">
+                  {isOwnProfile 
+                    ? "This section will show your activity and achievements. Stay tuned for updates!" 
+                    : `This section will show ${profile?.fullName}'s activity and achievements. Stay tuned for updates!`}
+                </Typography>
+              </div>
+            )}
+          </div>
+        </Paper>
+      </motion.div>
+    </div>
+  );
+};
+
+export default Profile;
+
+================
+File: frontend/src/pages/Register.jsx
+================
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
+import { Button, Paper, Typography, Divider, CircularProgress } from '@mui/material';
+import { Google as GoogleIcon, Facebook as FacebookIcon, GitHub as GitHubIcon } from '@mui/icons-material';
+import { motion } from 'framer-motion';
+import { toast } from 'react-toastify';
+
+import { register } from '../store/slices/authSlice';
+
+const registerSchema = Yup.object().shape({
+  username: Yup.string()
+    .min(3, 'Username must be at least 3 characters')
+    .max(50, 'Username must be less than 50 characters')
+    .matches(/^[a-zA-Z0-9_]+$/, 'Username can only contain letters, numbers, and underscores')
+    .required('Username is required'),
+  email: Yup.string()
+    .email('Invalid email')
+    .required('Email is required'),
+  password: Yup.string()
+    .min(8, 'Password must be at least 8 characters')
+    .required('Password is required'),
+  fullName: Yup.string()
+    .max(100, 'Full name must be less than 100 characters')
+    .required('Full name is required'),
+});
+
+const Register = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { isLoading, error } = useSelector(state => state.auth);
+  const [socialLoading, setSocialLoading] = useState('');
+  
+  const handleRegister = async (values) => {
+    try {
+      await dispatch(register({
+        username: values.username,
+        email: values.email,
+        password: values.password,
+        fullName: values.fullName
+      })).unwrap();
+      
+      navigate('/');
+      toast.success('Registration successful! Please check your email to verify your account.');
+    } catch (err) {
+      toast.error(err || 'Registration failed. Please try again.');
+    }
+  };
+  
+  const handleSocialLogin = (provider) => {
+    setSocialLoading(provider);
+    
+    // Redirect to backend OAuth endpoint
+    window.location.href = `http://localhost:8080/api/auth/oauth2/${provider}`;
+  };
+  
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 p-4">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="w-full max-w-md"
+      >
+        <Paper elevation={3} className="p-8 bg-white dark:bg-gray-800">
+          <div className="text-center mb-6">
+            <Typography variant="h4" className="text-primary font-bold">
+              Join Zircuit
+            </Typography>
+            <Typography variant="subtitle1" className="text-gray-600 dark:text-gray-300">
+              Create your account
+            </Typography>
+          </div>
+          
+          <Formik
+            initialValues={{ username: '', email: '', password: '', fullName: '' }}
+            validationSchema={registerSchema}
+            onSubmit={handleRegister}
+          >
+            {({ errors, touched }) => (
+              <Form className="space-y-4">
+                <div>
+                  <Field
+                    name="username"
+                    type="text"
+                    placeholder="Username"
+                    className={`input-field ${
+                      errors.username && touched.username ? 'border-red-500' : ''
+                    }`}
+                  />
+                  <ErrorMessage
+                    name="username"
+                    component="div"
+                    className="text-red-500 text-sm mt-1"
+                  />
+                </div>
+                
+                <div>
+                  <Field
+                    name="email"
+                    type="email"
+                    placeholder="Email"
+                    className={`input-field ${
+                      errors.email && touched.email ? 'border-red-500' : ''
+                    }`}
+                  />
+                  <ErrorMessage
+                    name="email"
+                    component="div"
+                    className="text-red-500 text-sm mt-1"
+                  />
+                </div>
+                
+                <div>
+                  <Field
+                    name="password"
+                    type="password"
+                    placeholder="Password"
+                    className={`input-field ${
+                      errors.password && touched.password ? 'border-red-500' : ''
+                    }`}
+                  />
+                  <ErrorMessage
+                    name="password"
+                    component="div"
+                    className="text-red-500 text-sm mt-1"
+                  />
+                </div>
+                
+                <div>
+                  <Field
+                    name="fullName"
+                    type="text"
+                    placeholder="Full Name"
+                    className={`input-field ${
+                      errors.fullName && touched.fullName ? 'border-red-500' : ''
+                    }`}
+                  />
+                  <ErrorMessage
+                    name="fullName"
+                    component="div"
+                    className="text-red-500 text-sm mt-1"
+                  />
+                </div>
+                
+                <Button
+                  type="submit"
+                  variant="contained"
+                  disabled={isLoading}
+                  fullWidth
+                  className="btn-primary"
+                >
+                  {isLoading ? (
+                    <CircularProgress size={24} className="text-white" />
+                  ) : (
+                    'Register'
+                  )}
+                </Button>
+              </Form>
+            )}
+          </Formik>
+          
+          <Divider className="my-6">or continue with</Divider>
+          
+          <div className="grid grid-cols-3 gap-4">
+            <Button
+              variant="outlined"
+              className="normal-case"
+              onClick={() => handleSocialLogin('google')}
+              disabled={!!socialLoading}
+              startIcon={socialLoading === 'google' ? <CircularProgress size={20} /> : <GoogleIcon />}
+            >
+              Google
+            </Button>
+            <Button
+              variant="outlined"
+              className="normal-case"
+              onClick={() => handleSocialLogin('facebook')}
+              disabled={!!socialLoading}
+              startIcon={socialLoading === 'facebook' ? <CircularProgress size={20} /> : <FacebookIcon />}
+            >
+              Facebook
+            </Button>
+            <Button
+              variant="outlined"
+              className="normal-case"
+              onClick={() => handleSocialLogin('github')}
+              disabled={!!socialLoading}
+              startIcon={socialLoading === 'github' ? <CircularProgress size={20} /> : <GitHubIcon />}
+            >
+              GitHub
+            </Button>
+          </div>
+          
+          <div className="mt-6 text-center">
+            <Typography variant="body2" className="text-gray-600 dark:text-gray-300">
+              Already have an account?{' '}
+              <Link to="/login" className="text-primary hover:underline">
+                Login
+              </Link>
+            </Typography>
+          </div>
+        </Paper>
+      </motion.div>
+    </div>
+  );
+};
+
+export default Register;
+
+================
+File: frontend/src/pages/ResetPassword.jsx
+================
+import { useState, useEffect } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
+import { 
+  Typography, 
+  Paper, 
+  Button, 
+  CircularProgress,
+  TextField,
+  Alert,
+  InputAdornment,
+  IconButton
+} from '@mui/material';
+import { 
+  Lock as LockIcon,
+  Visibility as VisibilityIcon,
+  VisibilityOff as VisibilityOffIcon,
+  ArrowBack as ArrowBackIcon,
+  CheckCircle as CheckCircleIcon
+} from '@mui/icons-material';
+import { useMutation } from '@tanstack/react-query';
+import { toast } from 'react-toastify';
+import { motion } from 'framer-motion';
+
+import { authService } from '../services/api';
+
+const resetPasswordSchema = Yup.object().shape({
+  newPassword: Yup.string()
+    .min(8, 'Password must be at least 8 characters')
+    .required('New password is required'),
+  confirmPassword: Yup.string()
+    .oneOf([Yup.ref('newPassword'), null], 'Passwords must match')
+    .required('Confirm password is required'),
+});
+
+const ResetPassword = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [token, setToken] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [resetSuccess, setResetSuccess] = useState(false);
+  const [tokenError, setTokenError] = useState(false);
+  
+  // Extract token from URL query parameter
+  useEffect(() => {
+    const searchParams = new URLSearchParams(location.search);
+    const tokenParam = searchParams.get('token');
+    
+    if (!tokenParam) {
+      setTokenError(true);
+    } else {
+      setToken(tokenParam);
+    }
+  }, [location]);
+  
+  // Reset password mutation
+  const resetMutation = useMutation({
+    mutationFn: (values) => authService.resetPassword(token, values.newPassword),
+    onSuccess: () => {
+        setResetSuccess(true);
+        toast.success('Password reset successfully');
+      },
+      onError: (error) => {
+        toast.error(error.response?.data?.message || 'Failed to reset password');
+      },
+    });
+  
+  const handleSubmit = (values) => {
+    resetMutation.mutate(values);
+  };
+  
+  const toggleShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+  
+  const toggleShowConfirmPassword = () => {
+    setShowConfirmPassword(!showConfirmPassword);
+  };
+  
+  if (tokenError) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 p-4">
+        <Paper elevation={3} className="p-8 bg-white dark:bg-gray-800 max-w-md w-full">
+          <div className="text-center mb-6">
+            <LockIcon className="text-red-500 mb-2" style={{ fontSize: 48 }} />
+            <Typography variant="h5" className="font-bold">
+              Invalid Reset Link
+            </Typography>
+          </div>
+          
+          <Alert severity="error" className="mb-6">
+            The password reset link is invalid or has expired.
+          </Alert>
+          
+          <Typography variant="body2" className="text-gray-600 dark:text-gray-300 text-center mb-6">
+            Please request a new password reset link.
+          </Typography>
+          
+          <div className="flex justify-center">
+            <Button
+              variant="contained"
+              color="primary"
+              component={Link}
+              to="/forgot-password"
+            >
+              Request New Link
+            </Button>
+          </div>
+        </Paper>
+      </div>
+    );
+  }
+  
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 dark:bg-gray-900 p-4">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="w-full max-w-md"
+      >
+        <Paper elevation={3} className="p-8 bg-white dark:bg-gray-800">
+          {resetSuccess ? (
+            <div className="text-center">
+              <CheckCircleIcon className="text-green-500 mb-2" style={{ fontSize: 48 }} />
+              <Typography variant="h5" className="font-bold mb-4">
+                Password Reset Successful
+              </Typography>
+              
+              <Typography variant="body1" className="mb-6">
+                Your password has been reset successfully. You can now log in with your new password.
+              </Typography>
+              
+              <Button
+                variant="contained"
+                color="primary"
+                component={Link}
+                to="/login"
+                fullWidth
+              >
+                Go to Login
+              </Button>
+            </div>
+          ) : (
+            <>
+              <div className="text-center mb-6">
+                <LockIcon className="text-primary mb-2" style={{ fontSize: 48 }} />
+                <Typography variant="h5" className="font-bold">
+                  Reset Password
+                </Typography>
+                <Typography variant="subtitle1" className="text-gray-600 dark:text-gray-300">
+                  Create a new password for your account
+                </Typography>
+              </div>
+              
+              <Formik
+                initialValues={{ newPassword: '', confirmPassword: '' }}
+                validationSchema={resetPasswordSchema}
+                onSubmit={handleSubmit}
+              >
+                {({ errors, touched }) => (
+                  <Form className="space-y-4">
+                    <div>
+                      <Field
+                        as={TextField}
+                        name="newPassword"
+                        label="New Password"
+                        fullWidth
+                        variant="outlined"
+                        type={showPassword ? 'text' : 'password'}
+                        error={touched.newPassword && !!errors.newPassword}
+                        helperText={touched.newPassword && errors.newPassword}
+                        InputProps={{
+                          endAdornment: (
+                            <InputAdornment position="end">
+                              <IconButton
+                                onClick={toggleShowPassword}
+                                edge="end"
+                              >
+                                {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                              </IconButton>
+                            </InputAdornment>
+                          ),
+                        }}
+                      />
+                    </div>
+                    
+                    <div>
+                      <Field
+                        as={TextField}
+                        name="confirmPassword"
+                        label="Confirm Password"
+                        fullWidth
+                        variant="outlined"
+                        type={showConfirmPassword ? 'text' : 'password'}
+                        error={touched.confirmPassword && !!errors.confirmPassword}
+                        helperText={touched.confirmPassword && errors.confirmPassword}
+                        InputProps={{
+                          endAdornment: (
+                            <InputAdornment position="end">
+                              <IconButton
+                                onClick={toggleShowConfirmPassword}
+                                edge="end"
+                              >
+                                {showConfirmPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                              </IconButton>
+                            </InputAdornment>
+                          ),
+                        }}
+                      />
+                    </div>
+                    
+                    <Button
+                      type="submit"
+                      variant="contained"
+                      color="primary"
+                      fullWidth
+                      disabled={resetMutation.isLoading}
+                      className="mt-4"
+                    >
+                      {resetMutation.isLoading ? (
+                        <CircularProgress size={24} className="text-white" />
+                      ) : (
+                        'Reset Password'
+                      )}
+                    </Button>
+                    
+                    <div className="mt-4 text-center">
+                      <Button
+                        startIcon={<ArrowBackIcon />}
+                        component={Link}
+                        to="/login"
+                        size="small"
+                      >
+                        Back to Login
+                      </Button>
+                    </div>
+                  </Form>
+                )}
+              </Formik>
+            </>
+          )}
+        </Paper>
+      </motion.div>
+    </div>
+  );
+};
+
+export default ResetPassword;
+
+================
+File: frontend/src/pages/Settings.jsx
+================
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { Formik, Form, Field } from 'formik';
+import * as Yup from 'yup';
+import { 
+  Typography, 
+  Paper, 
+  CircularProgress, 
+  Button, 
+  FormControlLabel,
+  Switch,
+  Divider,
+  TextField,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  FormHelperText
+} from '@mui/material';
+import { 
+  Save as SaveIcon,
+  Email as EmailIcon,
+  Lock as LockIcon,
+  Visibility as VisibilityIcon,
+  Chat as ChatIcon,
+  DarkMode as DarkModeIcon,
+  LightMode as LightModeIcon,
+} from '@mui/icons-material';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { toast } from 'react-toastify';
+import { motion } from 'framer-motion';
+
+import { userService, messageService } from '../services/api';
+import { updateUser } from '../store/slices/authSlice';
+import { toggleTheme } from '../store/slices/uiSlice';
+
+const settingsSchema = Yup.object().shape({
+  email: Yup.string()
+    .email('Invalid email')
+    .required('Email is required'),
+  isPublic: Yup.boolean(),
+  allowMessagesFrom: Yup.string()
+    .required('Message permission is required'),
+});
+
+const Settings = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { user } = useSelector(state => state.auth);
+  const { theme } = useSelector(state => state.ui);
+  const [initialValues, setInitialValues] = useState({
+    email: user?.email || '',
+    isPublic: false,
+    allowMessagesFrom: 'ALL',
+  });
+  
+  // Fetch profile data
+  const { data: profile, isLoading: profileLoading } = useQuery(
+    ['profile', user?.id],
+    () => userService.getProfile(user.id),
+    {
+      enabled: !!user?.id,
+      staleTime: 60000, // 1 minute
+    }
+  );
+  
+  // Fetch message settings
+  const { data: messageSettings, isLoading: messageSettingsLoading } = useQuery(
+    ['messageSettings'],
+    () => messageService.getMessageSettings(),
+    {
+      staleTime: 60000, // 1 minute
+    }
+  );
+  
+  // Set initial values when data is loaded
+  useEffect(() => {
+    if (profile && messageSettings) {
+      setInitialValues({
+        email: user.email,
+        isPublic: profile.isPublic,
+        allowMessagesFrom: messageSettings.allowMessagesFrom,
+      });
+    }
+  }, [profile, messageSettings, user]);
+  
+  // Update settings mutation
+  const updateSettingsMutation = useMutation({
+  mutationFn: (data) => userService.updateSettings(data),
+  onSuccess: (data) => {
+        // Update user in Redux store
+        dispatch(updateUser({
+          email: data.email,
+          isPublic: data.isPublic,
+        }));
+        
+        toast.success('Settings updated successfully');
+      },
+      onError: (error) => {
+        toast.error(error.response?.data?.message || 'Failed to update settings');
+      },
+  });
+  
+  // Update message settings mutation
+  const updateMessageSettingsMutation = useMutation({
+    mutationFn: (allowMessagesFrom) => messageService.updateMessageSettings(allowMessagesFrom),
+    onSuccess: () => {
+        toast.success('Message settings updated successfully');
+      },
+      onError: (error) => {
+        toast.error(error.response?.data?.message || 'Failed to update message settings');
+      },
+
+  });
+  
+  const handleSubmit = async (values) => {
+    try {
+      // Update user settings
+      await updateSettingsMutation.mutateAsync({
+        email: values.email,
+        isPublic: values.isPublic,
+      });
+      
+      // Update message settings
+      await updateMessageSettingsMutation.mutateAsync({
+        allowMessagesFrom: values.allowMessagesFrom,
+      });
+    } catch (error) {
+      // Error is already handled in mutations
+    }
+  };
+  
+  const handleThemeToggle = () => {
+    dispatch(toggleTheme());
+  };
+  
+  const isLoading = profileLoading || messageSettingsLoading || 
+                   updateSettingsMutation.isLoading || 
+                   updateMessageSettingsMutation.isLoading;
+  
+  return (
+    <div className="container mx-auto max-w-3xl">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.3 }}
+      >
+        <Paper elevation={2} className="mb-4 p-6">
+          <Typography variant="h5" className="mb-6">Settings</Typography>
+          
+          {isLoading && !updateSettingsMutation.isLoading && !updateMessageSettingsMutation.isLoading ? (
+            <div className="flex justify-center py-8">
+              <CircularProgress />
+            </div>
+          ) : (
+            <Formik
+              enableReinitialize
+              initialValues={initialValues}
+              validationSchema={settingsSchema}
+              onSubmit={handleSubmit}
+            >
+              {({ errors, touched, values, setFieldValue, isValid, dirty }) => (
+                <Form className="space-y-6">
+                  {/* Account Section */}
+                  <div>
+                    <div className="flex items-center mb-4">
+                      <EmailIcon className="mr-2" />
+                      <Typography variant="h6">Account</Typography>
+                    </div>
+                    
+                    <div className="ml-8">
+                      <Typography variant="subtitle2" className="mb-1">
+                        Email Address
+                      </Typography>
+                      <Field
+                        as={TextField}
+                        name="email"
+                        fullWidth
+                        variant="outlined"
+                        size="small"
+                        error={touched.email && !!errors.email}
+                        helperText={touched.email && errors.email}
+                      />
+                      {user?.email !== values.email && (
+                        <Typography variant="caption" className="text-gray-500 block mt-1">
+                          You will need to verify your new email address
+                        </Typography>
+                      )}
+                    </div>
+                  </div>
+                  
+                  <Divider />
+                  
+                  {/* Privacy Section */}
+                  <div>
+                    <div className="flex items-center mb-4">
+                      <VisibilityIcon className="mr-2" />
+                      <Typography variant="h6">Privacy</Typography>
+                    </div>
+                    
+                    <div className="ml-8">
+                      <FormControlLabel
+                        control={
+                          <Switch
+                            checked={values.isPublic}
+                            onChange={(e) => setFieldValue('isPublic', e.target.checked)}
+                            color="primary"
+                          />
+                        }
+                        label="Public Profile"
+                      />
+                      <Typography variant="caption" className="text-gray-500 block mt-1 mb-4">
+                        When enabled, your profile will be visible to anyone
+                      </Typography>
+                    </div>
+                  </div>
+                  
+                  <Divider />
+                  
+                  {/* Messages Section */}
+                  <div>
+                    <div className="flex items-center mb-4">
+                      <ChatIcon className="mr-2" />
+                      <Typography variant="h6">Messages</Typography>
+                    </div>
+                    
+                    <div className="ml-8">
+                      <FormControl 
+                        fullWidth 
+                        size="small"
+                        error={touched.allowMessagesFrom && !!errors.allowMessagesFrom}
+                      >
+                        <InputLabel>Who can send you messages</InputLabel>
+                        <Field
+                          as={Select}
+                          name="allowMessagesFrom"
+                          label="Who can send you messages"
+                        >
+                          <MenuItem value="ALL">Everyone</MenuItem>
+                          <MenuItem value="FOLLOWING">Only people I follow</MenuItem>
+                          <MenuItem value="NONE">No one</MenuItem>
+                        </Field>
+                        {touched.allowMessagesFrom && errors.allowMessagesFrom && (
+                          <FormHelperText>{errors.allowMessagesFrom}</FormHelperText>
+                        )}
+                      </FormControl>
+                    </div>
+                  </div>
+                  
+                  <Divider />
+                  
+                  {/* Appearance Section */}
+                  <div>
+                    <div className="flex items-center mb-4">
+                      {theme === 'dark' ? (
+                        <DarkModeIcon className="mr-2" />
+                      ) : (
+                        <LightModeIcon className="mr-2" />
+                      )}
+                      <Typography variant="h6">Appearance</Typography>
+                    </div>
+                    
+                    <div className="ml-8">
+                      <FormControlLabel
+                        control={
+                          <Switch
+                            checked={theme === 'dark'}
+                            onChange={handleThemeToggle}
+                            color="primary"
+                          />
+                        }
+                        label="Dark Mode"
+                      />
+                    </div>
+                  </div>
+                  
+                  <Divider />
+                  
+                  {/* Security Section */}
+                  <div>
+                    <div className="flex items-center mb-4">
+                      <LockIcon className="mr-2" />
+                      <Typography variant="h6">Security</Typography>
+                    </div>
+                    
+                    <div className="ml-8">
+                      <Button
+                        variant="outlined"
+                        onClick={() => navigate('/forgot-password')}
+                      >
+                        Change Password
+                      </Button>
+                    </div>
+                  </div>
+                  
+                  <Divider />
+                  
+                  {/* Submit Button */}
+                  <div className="flex justify-end pt-4">
+                    <Button
+                      type="submit"
+                      variant="contained"
+                      color="primary"
+                      startIcon={isLoading ? <CircularProgress size={20} /> : <SaveIcon />}
+                      disabled={isLoading || !dirty || !isValid}
+                    >
+                      {isLoading ? 'Saving...' : 'Save Changes'}
+                    </Button>
+                  </div>
+                </Form>
+              )}
+            </Formik>
+          )}
+        </Paper>
+      </motion.div>
+    </div>
+  );
+};
+
+export default Settings;
+
+================
+File: frontend/src/services/api.js
+================
+import axios from 'axios';
+
+const API_URL = 'http://localhost:8080/api';
+
+const api = axios.create({
+  baseURL: API_URL,
+  headers: {
+    'Content-Type': 'application/json',
+  },
+});
+
+// Request interceptor for adding the auth token
+api.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      config.headers['Authorization'] = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
+
+// Response interceptor for handling token refresh
+api.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  async (error) => {
+    const originalRequest = error.config;
+    if (error.response.status === 401 && !originalRequest._retry) {
+      originalRequest._retry = true;
+      
+      try {
+        const refreshToken = localStorage.getItem('refreshToken');
+        if (!refreshToken) {
+          throw new Error('No refresh token available');
+        }
+        
+        const response = await axios.post(
+          `${API_URL}/auth/refresh-token`,
+          {},
+          { headers: { 'Authorization': `Bearer ${refreshToken}` } }
+        );
+        
+        const { token, refreshToken: newRefreshToken } = response.data.data;
+        localStorage.setItem('token', token);
+        localStorage.setItem('refreshToken', newRefreshToken);
+        
+        originalRequest.headers['Authorization'] = `Bearer ${token}`;
+        return api(originalRequest);
+      } catch (err) {
+        console.error('Failed to refresh token:', err);
+        localStorage.removeItem('token');
+        localStorage.removeItem('refreshToken');
+        localStorage.removeItem('user');
+        window.location.href = '/login';
+        return Promise.reject(err);
+      }
+    }
+    
+    return Promise.reject(error);
+  }
+);
+
+// Authentication services
+export const authService = {
+  login: async (email, password) => {
+    const response = await api.post('/auth/login', { email, password });
+    return response.data.data;
+  },
+  
+  register: async (username, email, password, fullName) => {
+    const response = await api.post('/auth/register', { username, email, password, fullName });
+    return response.data.data;
+  },
+  
+  forgotPassword: async (email) => {
+    const response = await api.post('/auth/forgot-password', null, { params: { email } });
+    return response.data;
+  },
+  
+  resetPassword: async (token, newPassword) => {
+    const response = await api.post('/auth/reset-password', null, { 
+      params: { token, newPassword } 
+    });
+    return response.data;
+  },
+  
+  verifyEmail: async (token) => {
+    const response = await api.get('/auth/verify-email', { params: { token } });
+    return response.data;
+  }
+};
+
+// User services
+export const userService = {
+  getProfile: async (userId) => {
+    const response = await api.get(`/users/${userId}/profile`);
+    return response.data.data;
+  },
+  
+  updateProfile: async (profileData) => {
+    const response = await api.put('/users/me/profile', profileData);
+    return response.data.data;
+  },
+  
+  updateSettings: async (settingsData) => {
+    const response = await api.put('/users/me/settings', settingsData);
+    return response.data.data;
+  },
+  
+  uploadAvatar: async (file) => {
+    const formData = new FormData();
+    formData.append('file', file);
+    
+    const response = await api.post('/users/me/avatar', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    
+    return response.data.data;
+  }
+};
+
+// Follow services
+export const followService = {
+  followUser: async (userId) => {
+    const response = await api.post(`/users/${userId}/follow`);
+    return response.data;
+  },
+  
+  unfollowUser: async (userId) => {
+    const response = await api.delete(`/users/${userId}/follow`);
+    return response.data;
+  },
+  
+  getFollowers: async (userId, page = 0, size = 20) => {
+    const response = await api.get(`/users/${userId}/followers`, {
+      params: { page, size }
+    });
+    return response.data.data;
+  },
+  
+  getFollowing: async (userId, page = 0, size = 20) => {
+    const response = await api.get(`/users/${userId}/following`, {
+      params: { page, size }
+    });
+    return response.data.data;
+  }
+};
+
+// Message services
+export const messageService = {
+  sendMessage: async (receiverId, content) => {
+    const response = await api.post('/messages', { receiverId, content });
+    return response.data.data;
+  },
+  
+  getConversations: async (page = 0, size = 20) => {
+    const response = await api.get('/messages/conversations', {
+      params: { page, size }
+    });
+    return response.data.data;
+  },
+  
+  getConversation: async (userId, page = 0, size = 50) => {
+    const response = await api.get(`/messages/${userId}`, {
+      params: { page, size }
+    });
+    return response.data.data;
+  },
+  
+  deleteMessage: async (messageId) => {
+    const response = await api.delete(`/messages/${messageId}`);
+    return response.data;
+  },
+  
+  updateMessageSettings: async (allowMessagesFrom) => {
+    const response = await api.put('/messages/settings', { allowMessagesFrom });
+    return response.data;
+  },
+  
+  getMessageSettings: async () => {
+    const response = await api.get('/messages/settings');
+    return response.data;
+  }
+};
+
+// Notification services
+export const notificationService = {
+  getNotifications: async (unreadOnly = false, page = 0, size = 20) => {
+    const response = await api.get('/notifications', {
+      params: { unreadOnly, page, size }
+    });
+    return response.data.data;
+  },
+  
+  markAsRead: async (notificationId) => {
+    const response = await api.put(`/notifications/${notificationId}/read`);
+    return response.data;
+  },
+  
+  markAllAsRead: async () => {
+    const response = await api.put('/notifications/read-all');
+    return response.data;
+  },
+  
+  getUnreadCount: async () => {
+    const response = await api.get('/notifications/unread-count');
+    return response.data.data.count;
+  }
+};
+
+export default api;
+
+================
+File: frontend/src/services/socket.js
+================
+import { Client } from '@stomp/stompjs';
+
+let stompClient = null;
+let messageHandlers = [];
+let notificationHandlers = [];
+let connectionHandlers = [];
+
+const SOCKET_URL = 'ws://localhost:8080/api/ws';
+
+export const connectWebSocket = (userId) => {
+  if (stompClient) {
+    disconnectWebSocket();
+  }
+
+  const token = localStorage.getItem('token');
+  if (!token) {
+    console.error('No auth token found for WebSocket connection');
+    return;
+  }
+
+  stompClient = new Client({
+    brokerURL: SOCKET_URL,
+    connectHeaders: {
+      'Authorization': `Bearer ${token}`
+    },
+    debug: function (str) {
+      console.log('STOMP: ' + str);
+    },
+    reconnectDelay: 5000,
+    heartbeatIncoming: 4000,
+    heartbeatOutgoing: 4000
+  });
+
+  stompClient.onConnect = (frame) => {
+    console.log('WebSocket Connected');
+    
+    // Subscribe to personal message channel
+    stompClient.subscribe(`/topic/messages/${userId}`, (message) => {
+      try {
+        const receivedMessage = JSON.parse(message.body);
+        messageHandlers.forEach(handler => handler(receivedMessage));
+      } catch (error) {
+        console.error('Error processing message:', error);
+      }
+    });
+    
+    // Subscribe to personal notification channel
+    stompClient.subscribe(`/topic/notifications/${userId}`, (notification) => {
+      try {
+        const receivedNotification = JSON.parse(notification.body);
+        notificationHandlers.forEach(handler => handler(receivedNotification));
+      } catch (error) {
+        console.error('Error processing notification:', error);
+      }
+    });
+    
+    // Notify connection handlers
+    connectionHandlers.forEach(handler => handler(true));
+  };
+
+  stompClient.onStompError = (frame) => {
+    console.error('WebSocket Error:', frame.headers.message);
+    console.error('Additional details:', frame.body);
+    connectionHandlers.forEach(handler => handler(false));
+  };
+
+  stompClient.activate();
+};
+
+export const disconnectWebSocket = () => {
+  if (stompClient && stompClient.connected) {
+    stompClient.deactivate();
+    connectionHandlers.forEach(handler => handler(false));
+    console.log('WebSocket Disconnected');
+  }
+};
+
+export const sendMessage = (receiverId, content) => {
+  if (!stompClient || !stompClient.connected) {
+    console.error('WebSocket not connected');
+    return;
+  }
+  
+  stompClient.publish({
+    destination: `/app/chat/${receiverId}`,
+    body: content
+  });
+};
+
+export const onMessage = (handler) => {
+  messageHandlers.push(handler);
+  return () => {
+    messageHandlers = messageHandlers.filter(h => h !== handler);
+  };
+};
+
+export const onNotification = (handler) => {
+  notificationHandlers.push(handler);
+  return () => {
+    notificationHandlers = notificationHandlers.filter(h => h !== handler);
+  };
+};
+
+export const onConnectionChange = (handler) => {
+  connectionHandlers.push(handler);
+  return () => {
+    connectionHandlers = connectionHandlers.filter(h => h !== handler);
+  };
+};
+
+export default {
+  connectWebSocket,
+  disconnectWebSocket,
+  sendMessage,
+  onMessage,
+  onNotification,
+  onConnectionChange
+};
+
+================
+File: frontend/src/store/index.js
+================
+import { configureStore } from '@reduxjs/toolkit';
+import authReducer from './slices/authSlice';
+import uiReducer from './slices/uiSlice';
+import notificationReducer from './slices/notificationSlice';
+
+export const store = configureStore({
+  reducer: {
+    auth: authReducer,
+    ui: uiReducer,
+    notifications: notificationReducer,
+  },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
+});
+
+export default store;
+
+================
+File: frontend/src/store/slices/authSlice.js
+================
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { authService } from '../../services/api';
+import { connectWebSocket, disconnectWebSocket } from '../../services/socket';
+
+// Get initial state from localStorage
+const user = JSON.parse(localStorage.getItem('user'));
+const token = localStorage.getItem('token');
+const refreshToken = localStorage.getItem('refreshToken');
+
+const initialState = {
+  user: user || null,
+  token: token || null,
+  refreshToken: refreshToken || null,
+  isAuthenticated: !!token,
+  isLoading: false,
+  error: null,
+};
+
+export const login = createAsyncThunk(
+  'auth/login',
+  async ({ email, password }, { rejectWithValue }) => {
+    try {
+      const response = await authService.login(email, password);
+      return response;
+    } catch (error) {
+      return rejectWithValue(error.response?.data?.message || 'Login failed');
+    }
+  }
+);
+
+export const register = createAsyncThunk(
+  'auth/register',
+  async ({ username, email, password, fullName }, { rejectWithValue }) => {
+    try {
+      const response = await authService.register(username, email, password, fullName);
+      return response;
+    } catch (error) {
+      return rejectWithValue(error.response?.data?.message || 'Registration failed');
+    }
+  }
+);
+
+export const logout = createAsyncThunk(
+  'auth/logout',
+  async (_, { getState }) => {
+    // Disconnect WebSocket
+    disconnectWebSocket();
+    
+    // Clear storage
+    localStorage.removeItem('token');
+    localStorage.removeItem('refreshToken');
+    localStorage.removeItem('user');
+    
+    return null;
+  }
+);
+
+const authSlice = createSlice({
+  name: 'auth',
+  initialState,
+  reducers: {
+    updateUser: (state, action) => {
+      state.user = { ...state.user, ...action.payload };
+      localStorage.setItem('user', JSON.stringify(state.user));
+    },
+  },
+  extraReducers: (builder) => {
+    builder
+      // Login
+      .addCase(login.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(login.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isAuthenticated = true;
+        state.user = action.payload.user;
+        state.token = action.payload.token;
+        state.refreshToken = action.payload.refreshToken;
+        
+        // Store auth data in localStorage
+        localStorage.setItem('token', action.payload.token);
+        localStorage.setItem('refreshToken', action.payload.refreshToken);
+        localStorage.setItem('user', JSON.stringify(action.payload.user));
+        
+        // Connect to WebSocket
+        connectWebSocket(action.payload.user.id);
+      })
+      .addCase(login.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload || 'Login failed';
+      })
+      
+      // Register
+      .addCase(register.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(register.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isAuthenticated = true;
+        state.user = action.payload.user;
+        state.token = action.payload.token;
+        state.refreshToken = action.payload.refreshToken;
+        
+        // Store auth data in localStorage
+        localStorage.setItem('token', action.payload.token);
+        localStorage.setItem('refreshToken', action.payload.refreshToken);
+        localStorage.setItem('user', JSON.stringify(action.payload.user));
+        
+        // Connect to WebSocket
+        connectWebSocket(action.payload.user.id);
+      })
+      .addCase(register.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload || 'Registration failed';
+      })
+      
+      // Logout
+      .addCase(logout.fulfilled, (state) => {
+        state.user = null;
+        state.token = null;
+        state.refreshToken = null;
+        state.isAuthenticated = false;
+      });
+  },
+});
+
+export const { updateUser } = authSlice.actions;
+
+export default authSlice.reducer;
+
+================
+File: frontend/src/store/slices/notificationSlice.js
+================
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { notificationService } from '../../services/api';
+
+export const fetchNotifications = createAsyncThunk(
+  'notifications/fetchNotifications',
+  async ({ unreadOnly = false, page = 0, size = 20 }, { rejectWithValue }) => {
+    try {
+      return await notificationService.getNotifications(unreadOnly, page, size);
+    } catch (error) {
+      return rejectWithValue(error.response?.data?.message || 'Failed to fetch notifications');
+    }
+  }
+);
+
+export const markAsRead = createAsyncThunk(
+  'notifications/markAsRead',
+  async (notificationId, { rejectWithValue }) => {
+    try {
+      await notificationService.markAsRead(notificationId);
+      return notificationId;
+    } catch (error) {
+      return rejectWithValue(error.response?.data?.message || 'Failed to mark notification as read');
+    }
+  }
+);
+
+export const markAllAsRead = createAsyncThunk(
+  'notifications/markAllAsRead',
+  async (_, { rejectWithValue }) => {
+    try {
+      await notificationService.markAllAsRead();
+      return true;
+    } catch (error) {
+      return rejectWithValue(error.response?.data?.message || 'Failed to mark all notifications as read');
+    }
+  }
+);
+
+export const getUnreadCount = createAsyncThunk(
+  'notifications/getUnreadCount',
+  async (_, { rejectWithValue }) => {
+    try {
+      return await notificationService.getUnreadCount();
+    } catch (error) {
+      return rejectWithValue(error.response?.data?.message || 'Failed to get unread count');
+    }
+  }
+);
+
+const initialState = {
+  notifications: [],
+  unreadCount: 0,
+  isLoading: false,
+  error: null,
+  hasMore: true,
+  currentPage: 0,
+};
+
+const notificationSlice = createSlice({
+  name: 'notifications',
+  initialState,
+  reducers: {
+    addNotification: (state, action) => {
+      state.notifications.unshift(action.payload);
+      state.unreadCount += 1;
+    },
+    
+    resetNotifications: (state) => {
+      state.notifications = [];
+      state.currentPage = 0;
+      state.hasMore = true;
+    },
+  },
+  extraReducers: (builder) => {
+    builder
+      // Fetch notifications
+      .addCase(fetchNotifications.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(fetchNotifications.fulfilled, (state, action) => {
+        state.isLoading = false;
+        
+        // If it's the first page, replace notifications, otherwise append
+        if (state.currentPage === 0) {
+          state.notifications = action.payload.content;
+        } else {
+          state.notifications = [...state.notifications, ...action.payload.content];
+        }
+        
+        state.hasMore = !action.payload.last;
+        state.currentPage = action.payload.pageable.pageNumber + 1;
+      })
+      .addCase(fetchNotifications.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.payload;
+      })
+      
+      // Mark as read
+      .addCase(markAsRead.fulfilled, (state, action) => {
+        const notificationId = action.payload;
+        const notification = state.notifications.find(n => n.id === notificationId);
+        
+        if (notification && !notification.isRead) {
+          notification.isRead = true;
+          state.unreadCount = Math.max(0, state.unreadCount - 1);
+        }
+      })
+      
+      // Mark all as read
+      .addCase(markAllAsRead.fulfilled, (state) => {
+        state.notifications.forEach(notification => {
+          notification.isRead = true;
+        });
+        state.unreadCount = 0;
+      })
+      
+      // Get unread count
+      .addCase(getUnreadCount.fulfilled, (state, action) => {
+        state.unreadCount = action.payload;
+      });
+  },
+});
+
+export const { addNotification, resetNotifications } = notificationSlice.actions;
+
+export default notificationSlice.reducer;
+
+================
+File: frontend/src/store/slices/uiSlice.js
+================
+import { createSlice } from '@reduxjs/toolkit';
+
+const getPreferredTheme = () => {
+  const savedTheme = localStorage.getItem('theme');
+  
+  if (savedTheme) {
+    return savedTheme;
+  }
+  
+  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+};
+
+const initialState = {
+  theme: getPreferredTheme(),
+  isSidebarOpen: false,
+  isLoading: false,
+};
+
+const uiSlice = createSlice({
+  name: 'ui',
+  initialState,
+  reducers: {
+    toggleTheme: (state) => {
+      state.theme = state.theme === 'light' ? 'dark' : 'light';
+      localStorage.setItem('theme', state.theme);
+      
+      // Apply theme to document
+      if (state.theme === 'dark') {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+    },
+    
+    toggleSidebar: (state) => {
+      state.isSidebarOpen = !state.isSidebarOpen;
+    },
+    
+    setLoading: (state, action) => {
+      state.isLoading = action.payload;
+    },
+  },
+});
+
+export const { toggleTheme, toggleSidebar, setLoading } = uiSlice.actions;
+
+export default uiSlice.reducer;
+
+================
+File: frontend/tailwind.config.js
+================
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+  ],
+  theme: {
+    extend: {
+      colors: {
+        primary: {
+          light: '#6366f1',
+          DEFAULT: '#4f46e5',
+          dark: '#4338ca',
+        },
+        secondary: {
+          light: '#f3f4f6',
+          DEFAULT: '#e5e7eb',
+          dark: '#d1d5db',
+        },
+        background: {
+          light: '#ffffff',
+          DEFAULT: '#f9fafb',
+          dark: '#111827',
+        },
+        text: {
+          light: '#f9fafb',
+          DEFAULT: '#374151',
+          dark: '#111827',
+        }
+      },
+    },
+  },
+  darkMode: 'class',
+  plugins: [],
+}
+
+================
+File: frontend/vite.config.js
+================
+import { defineConfig } from 'vite'
+import react from '@vitejs/plugin-react'
+
+// https://vite.dev/config/
+export default defineConfig({
+  plugins: [react()],
+})
+
+
+
+================================================================
+End of Codebase
+================================================================
