@@ -1,8 +1,12 @@
 package backend.User.controller;
 
 import backend.exception.ResourceNotFoundException;
+import backend.LearningPlan.model.LearningPlanModel;
 import backend.User.model.UserModel;
+import backend.LearningPlan.model.LearningPlanModel;
 import backend.User.repository.UserRepository;
+import backend.Achievements.repository.AchievementsRepository;
+import backend.LearningPlan.repository.LearningPlanRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,7 +35,15 @@ public class UserController {
     private UserRepository userRepository;
 
     @Autowired
+    private AchievementsRepository achievementsRepository; // Inject the repository
+
+    @Autowired
+    private LearningPlanRepository learningPlanRepository; // Inject the repository
+
+    @Autowired
     private JavaMailSender mailSender; // Add JavaMailSender for sending emails
+
+    
 
     private static final String PROFILE_UPLOAD_DIR = "uploads/profile"; // Relative path
 
@@ -101,6 +113,13 @@ public class UserController {
                     userModel.setProfilePicturePath(newUserModel.getProfilePicturePath());
                     userModel.setSkills(newUserModel.getSkills()); // Update skills
                     userModel.setBio(newUserModel.getBio()); // Update bio
+
+                    // Update postOwnerName in all related posts
+                    List<LearningPlanModel> userPosts = learningPlanRepository.findByPostOwnerID(id);
+                    userPosts.forEach(post -> {
+                        post.setPostOwnerName(newUserModel.getFullname());
+                        learningPlanRepository.save(post);
+                    });
                     
                     return userRepository.save(userModel);
                 }).orElseThrow(() -> new ResourceNotFoundException(id));
@@ -164,6 +183,15 @@ public class UserController {
             throw new ResourceNotFoundException(id);
         }
 
+        // Delete user-related data
+        userRepository.findById(id).ifPresent(user -> {
+            
+            // Delete user's posts
+            achievementsRepository.deleteByPostOwnerID(id);
+            learningPlanRepository.deleteByPostOwnerID(id);
+            
+        });
+
         // Delete user account
         userRepository.deleteById(id);
 
@@ -224,4 +252,5 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of("message", "Failed to send verification code."));
         }
     }
+
 }
