@@ -7,7 +7,11 @@ import UpdateLearningPlan from "./pages/LearningPlan/UpdateLearningPlan";
 import UserLogin from "./Pages/UserManagement/UserLogin";
 import UserRegister from "./Pages/UserManagement/UserRegister";
 import UpdateUserProfile from "./Pages/UserManagement/UpdateUserProfile";
+import AddAchievements from "./pages/AchievementsManagement/AddAchievements";
+import AllAchievements from "./pages/AchievementsManagement/AllAchievements";
+import UpdateAchievements from "./pages/AchievementsManagement/UpdateAchievements";
 import UserProfile from "./Pages/UserManagement/UserProfile";
+import MyAchievements from "./pages/AchievementsManagement/MyAchievements";
 import GoogalUserPro from "./Pages/UserManagement/GoogalUserPro";
 import MyLearningPlan from "./pages/LearningPlan/MyLearningPlan";
 import NavBar from "./Components/NavBar/NavBar";
@@ -108,6 +112,38 @@ function App() {
               <ProtectedRoute>
                 <NavBar />
                 <GoogalUserPro />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/addAchievements"
+            element={
+              <ProtectedRoute>
+                <AddAchievements />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/allAchievements"
+            element={
+              <ProtectedRoute>
+                <AllAchievements />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/myAchievements"
+            element={
+              <ProtectedRoute>
+                <MyAchievements />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/updateAchievements/:id"
+            element={
+              <ProtectedRoute>
+                <UpdateAchievements />
               </ProtectedRoute>
             }
           />
