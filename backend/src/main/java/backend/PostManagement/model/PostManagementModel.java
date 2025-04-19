@@ -16,7 +16,8 @@ public class PostManagementModel {
     private String title;
     private String description;
     private List<String> media;
-
+    private Map<String, Boolean> likes = new HashMap<>(); // Map to store user likes
+    private List<Comment> comments = new ArrayList<>(); // List to store comments
     private String category; // New field for category
 
     public PostManagementModel(String id, String userID, String title, String description, List<String> media) {
@@ -71,11 +72,21 @@ public class PostManagementModel {
         this.media = media;
     }
 
+    public Map<String, Boolean> getLikes() {
+        return likes;
+    }
 
+    public void setLikes(Map<String, Boolean> likes) {
+        this.likes = likes;
+    }
 
+    public List<Comment> getComments() {
+        return comments;
+    }
 
-
-
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
 
     public String getCategory() {
         return category;
