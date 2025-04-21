@@ -1,0 +1,121 @@
+/* Ensure the body takes full height */
+body, html {
+    height: 100%;
+    margin: 0;
+}
+
+/* Title styling */
+.auth_topic {
+    font-size: 28px;
+    font-weight: bold;
+    margin-top: 2px; /* Adjusted margin-top to move it higher */
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* Add item container styles */
+.additem-container {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh; /* Full viewport height */
+    background-color: #f9f9f9;
+    background-image: url('../../assets/myplan.jpg'); /* Add background image */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* Form container styles */
+.from_vontiner {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+/* Sub-container for the form */
+.from_sub_coon {
+    width: 100%;
+    max-width: 600px;
+    background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent background */
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Align the form to the top */
+    overflow-y: auto; /* Allows scrolling if form content overflows */
+}
+
+/* Input and textarea styles */
+.from_sub_coon input,
+.from_sub_coon textarea {
+    width: 100%;
+    padding: 12px;
+    margin-top: 8px;
+    margin-bottom: 18px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 14px;
+    resize: vertical;
+}
+
+/* Row for Date and Time Period */
+.date-time-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 100px; /* Adds space between the two fields */
+    margin-bottom: 18px;
+}
+
+/* Each group takes up half width */
+.date-time-row .form-group {
+    flex: 1;
+}
+
+/* Button container */
+.form-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    margin-bottom: 0; /* Remove extra space after buttons */
+}
+
+/* Cancel button styles */
+.cancel-btn {
+    padding: 10px 20px;
+    background-color: #ccc;
+    color: #333;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+/* Create button styles */
+.create-btn {
+    padding: 10px 20px;
+    background-color: #4575a0;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+/* Button hover styles */
+.create-btn:hover {
+    background-color: #3a6582;
+}
+
+.cancel-btn:hover {
+    background-color: #bbb;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .date-time-row {
+        flex-direction: column;
+    }
+}
