@@ -10,7 +10,7 @@ import com.socialapp.Zircuit.model.postModel;
 import com.socialapp.Zircuit.repository.postRepo;
 
 @RestController
-@CrossOrigin("http://localhost : 3000")
+@CrossOrigin("http://localhost:3000")
 
 public class postController {
 @Autowired
