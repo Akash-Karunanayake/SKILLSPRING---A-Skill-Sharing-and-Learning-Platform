@@ -1,0 +1,97 @@
+{"properties": [
+  {
+    "name": "app.jwt.secret",
+    "type": "java.lang.String",
+    "description": "A description for 'app.jwt.secret'"
+  },
+  {
+    "name": "app.jwt.expiration",
+    "type": "java.lang.String",
+    "description": "A description for 'app.jwt.expiration'"
+  },
+  {
+    "name": "app.jwt.prefix",
+    "type": "java.lang.String",
+    "description": "A description for 'app.jwt.prefix'"
+  },
+  {
+    "name": "app.jwt.header",
+    "type": "java.lang.String",
+    "description": "A description for 'app.jwt.header'"
+  },
+  {
+    "name": "app.jwt.refresh-expiration",
+    "type": "java.lang.String",
+    "description": "A description for 'app.jwt.refresh-expiration'"
+  },
+  {
+    "name": "file.upload-dir",
+    "type": "java.lang.String",
+    "description": "A description for 'file.upload-dir'"
+  },
+  {
+    "name": "app.frontend.url",
+    "type": "java.lang.String",
+    "description": "A description for 'app.frontend.url'"
+  },
+  {
+    "name": "spring.datasource.hikkari.ConnectionTimeout",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.datasource.hikkari.ConnectionTimeout'"
+  },
+  {
+    "name": "management.endpoints.web.exposure.include",
+    "type": "java.lang.String",
+    "description": "A description for 'management.endpoints.web.exposure.include'"
+  },
+  {
+    "name": "management.endpoint.health.show-details",
+    "type": "java.lang.String",
+    "description": "A description for 'management.endpoint.health.show-details'"
+  },
+  {
+    "name": "spring.datasource.hikkari.ConnectionTimeout",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.datasource.hikkari.ConnectionTimeout'"
+  },
+  {
+    "name": "app.verification.tokenExpirationMs",
+    "type": "java.lang.String",
+    "description": "A description for 'app.verification.tokenExpirationMs'"
+  },
+  {
+    "name": "app.verification.email.sender",
+    "type": "java.lang.String",
+    "description": "A description for 'app.verification.email.sender'"
+  },
+  {
+    "name": "app.password-reset.tokenExpirationMs",
+    "type": "java.lang.String",
+    "description": "A description for 'app.password-reset.tokenExpirationMs'"
+  },
+  {
+    "name": "app.jwt.refreshExpirationMs",
+    "type": "java.lang.String",
+    "description": "A description for 'app.jwt.refreshExpirationMs'"
+  },
+  {
+    "name": "app.jwt.refreshExpirationMs",
+    "type": "java.lang.String",
+    "description": "A description for 'app.jwt.refreshExpirationMs'"
+  },
+  {
+    "name": "app.jwt.expirationMs",
+    "type": "java.lang.String",
+    "description": "A description for 'app.jwt.expirationMs'"
+  },
+  {
+    "name": "app.oauth2.redirectUri",
+    "type": "java.lang.String",
+    "description": "A description for 'app.oauth2.redirectUri'"
+  },
+  {
+    "name": "app.file.upload-dir",
+    "type": "java.lang.String",
+    "description": "A description for 'app.file.upload-dir'"
+  }
+]}
