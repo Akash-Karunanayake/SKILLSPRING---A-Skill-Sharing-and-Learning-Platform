@@ -24,7 +24,7 @@ public class PostModel {
     }
 
     //constructor
-    public PostModel(Long post_id, String user_id, String title, String content, List<PostMedia> mediaList) {
+    public PostModel(Long post_id, String user_id, String title, String content, List<PostMediaModel> mediaList) {
         this.post_id = post_id;
         this.user_id = user_id;
         this.title = title;
