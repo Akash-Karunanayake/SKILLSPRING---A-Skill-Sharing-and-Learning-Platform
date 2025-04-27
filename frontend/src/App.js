@@ -1,12 +1,24 @@
 import React, { useEffect } from "react";
 import { Route, Routes, Navigate } from "react-router";
 import { useNavigate } from "react-router-dom";
+import AddLearningPlan from "./pages/LearningPlan/AddLearningPlan";
+import AllLearningPlan from "./pages/LearningPlan/AllLearningPlan";
+import UpdateLearningPlan from "./pages/LearningPlan/UpdateLearningPlan";
 import UserLogin from "./Pages/UserManagement/UserLogin";
 import UserRegister from "./Pages/UserManagement/UserRegister";
 import UpdateUserProfile from "./Pages/UserManagement/UpdateUserProfile";
+import AddAchievements from "./pages/AchievementsManagement/AddAchievements";
+import AllAchievements from "./pages/AchievementsManagement/AllAchievements";
+import UpdateAchievements from "./pages/AchievementsManagement/UpdateAchievements";
 import UserProfile from "./Pages/UserManagement/UserProfile";
+import MyAchievements from "./pages/AchievementsManagement/MyAchievements";
 import GoogalUserPro from "./Pages/UserManagement/GoogalUserPro";
+import MyLearningPlan from "./pages/LearningPlan/MyLearningPlan";
 import NavBar from "./Components/NavBar/NavBar";
+import AddNewPost from "./Pages/PostManagement/AddNewPost";
+import AllPost from "./Pages/PostManagement/AllPost";
+import UpdatePost from "./pages/PostManagement/UpdatePost";
+
 
 function ProtectedRoute({ children }) {
   const userID = localStorage.getItem("userID");
@@ -49,6 +61,38 @@ function App() {
 
           {/* Protected Routes with Navbar */}
           <Route
+            path="/addLearningPlan"
+            element={
+              <ProtectedRoute>
+                <AddLearningPlan />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/allLearningPlan"
+            element={
+              <ProtectedRoute>
+                <AllLearningPlan />
+              </ProtectedRoute>
+            }
+          />
+           <Route
+            path="/myLearningPlan"
+            element={
+              <ProtectedRoute>
+                <MyLearningPlan />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/updateLearningPlan/:id"
+            element={
+              <ProtectedRoute>
+                <UpdateLearningPlan />
+              </ProtectedRoute>
+            }
+          />
+          <Route
             path="/updateUserProfile/:id"
             element={
               <ProtectedRoute>
@@ -72,6 +116,38 @@ function App() {
               <ProtectedRoute>
                 <NavBar />
                 <GoogalUserPro />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/addAchievements"
+            element={
+              <ProtectedRoute>
+                <AddAchievements />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/allAchievements"
+            element={
+              <ProtectedRoute>
+                <AllAchievements />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/myAchievements"
+            element={
+              <ProtectedRoute>
+                <MyAchievements />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/updateAchievements/:id"
+            element={
+              <ProtectedRoute>
+                <UpdateAchievements />
               </ProtectedRoute>
             }
           />

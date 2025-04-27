@@ -1,8 +1,14 @@
 package backend.User.controller;
 
 import backend.exception.ResourceNotFoundException;
+import backend.Notification.model.NotificationModel;
 import backend.User.model.UserModel;
+import backend.LearningPlan.model.LearningPlanModel; // Import LearningPlanModel
+import backend.Notification.repository.NotificationRepository;
 import backend.User.repository.UserRepository;
+import backend.Achievements.repository.AchievementsRepository; // Import the repository
+import backend.LearningPlan.repository.LearningPlanRepository; // Import the repository
+import backend.PostManagement.repository.PostManagementRepository; // Import the repository
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +24,8 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -31,16 +39,28 @@ public class UserController {
     private UserRepository userRepository;
 
     @Autowired
+    private NotificationRepository notificationRepository;
+
+    @Autowired
+    private AchievementsRepository achievementsRepository; // Inject the repository
+
+    @Autowired
+    private LearningPlanRepository learningPlanRepository; // Inject the repository
+
+    @Autowired
+    private PostManagementRepository postManagementRepository; // Inject the repository
+
+    @Autowired
     private JavaMailSender mailSender; // Add JavaMailSender for sending emails
 
     private static final String PROFILE_UPLOAD_DIR = "uploads/profile"; // Relative path
 
-    //Insert
+    // Insert
     @PostMapping("/user")
     public ResponseEntity<?> newUserModel(@RequestBody UserModel newUserModel) {
-        if (newUserModel.getEmail() == null || newUserModel.getFullname() == null || 
-            newUserModel.getPassword() == null || newUserModel.getBio() == null || // Validate bio
-            newUserModel.getSkills() == null) { // Validate skills
+        if (newUserModel.getEmail() == null || newUserModel.getFullname() == null ||
+                newUserModel.getPassword() == null || newUserModel.getBio() == null || // Validate bio
+                newUserModel.getSkills() == null) { // Validate skills
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("message", "Missing required fields."));
         }
 
@@ -52,11 +72,12 @@ public class UserController {
             UserModel savedUser = userRepository.save(newUserModel);
             return ResponseEntity.status(HttpStatus.CREATED).body(savedUser);
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of("message", "Failed to save user."));
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Map.of("message", "Failed to save user."));
         }
     }
 
-    //User Login
+    // User Login
     @PostMapping("/login")
     public ResponseEntity<Map<String, Object>> login(@RequestBody UserModel loginDetails) {
         System.out.println("Login attempt for email: " + loginDetails.getEmail()); // Log email for debugging
@@ -77,7 +98,7 @@ public class UserController {
         }
     }
 
-    //Display
+    // Display
     @GetMapping("/user")
     List<UserModel> getAllUsers() {
         return userRepository.findAll();
@@ -89,7 +110,7 @@ public class UserController {
                 .orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
-    //update
+    // update
     @PutMapping("/user/{id}")
     UserModel updateProfile(@RequestBody UserModel newUserModel, @PathVariable String id) {
         return userRepository.findById(id)
@@ -101,7 +122,14 @@ public class UserController {
                     userModel.setProfilePicturePath(newUserModel.getProfilePicturePath());
                     userModel.setSkills(newUserModel.getSkills()); // Update skills
                     userModel.setBio(newUserModel.getBio()); // Update bio
-                    
+
+                    // Update postOwnerName in all related posts
+                    List<LearningPlanModel> userPosts = learningPlanRepository.findByPostOwnerID(id);
+                    userPosts.forEach(post -> {
+                        post.setPostOwnerName(newUserModel.getFullname());
+                        learningPlanRepository.save(post);
+                    });
+
                     return userRepository.save(userModel);
                 }).orElseThrow(() -> new ResourceNotFoundException(id));
     }
@@ -132,7 +160,8 @@ public class UserController {
 
                 return ResponseEntity.ok(Map.of("message", "Profile picture uploaded successfully."));
             } catch (IOException e) {
-                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of("message", "Failed to upload profile picture."));
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                        .body(Map.of("message", "Failed to upload profile picture."));
             }
         }).orElseThrow(() -> new ResourceNotFoundException("User not found: " + id));
     }
@@ -157,17 +186,32 @@ public class UserController {
         }
     }
 
-    //delete
+    // delete
     @DeleteMapping("/user/{id}")
     public ResponseEntity<?> deleteProfile(@PathVariable String id) {
         if (!userRepository.existsById(id)) {
             throw new ResourceNotFoundException(id);
         }
 
-        // Delete user account
+        // Delete user-related data
+        userRepository.findById(id).ifPresent(user -> {
+            // Delete user's posts
+            achievementsRepository.deleteByPostOwnerID(id);
+            learningPlanRepository.deleteByPostOwnerID(id);
+            postManagementRepository.deleteByUserID(id); // Delete user's posts
+            notificationRepository.deleteByUserId(id);
+
+            // Remove user from followers and following lists
+            userRepository.findAll().forEach(otherUser -> {
+                otherUser.getFollowedUsers().remove(id);
+                userRepository.save(otherUser);
+            });
+        });
+
+        // Delete the user account
         userRepository.deleteById(id);
 
-        return ResponseEntity.ok(Map.of("message", "User account deleted successfully."));
+        return ResponseEntity.ok(Map.of("message", "User account and related data deleted successfully."));
     }
 
     // check email
@@ -182,6 +226,16 @@ public class UserController {
         return userRepository.findById(userID).map(user -> {
             user.getFollowedUsers().add(followUserID);
             userRepository.save(user);
+
+            // Create a notification for the followed user
+            String followerFullName = userRepository.findById(userID)
+                    .map(follower -> follower.getFullname())
+                    .orElse("Someone");
+            String message = String.format("%s started following you.", followerFullName);
+            String currentDateTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+            NotificationModel notification = new NotificationModel(followUserID, message, false, currentDateTime);
+            notificationRepository.save(notification);
+
             return ResponseEntity.ok(Map.of("message", "User followed successfully"));
         }).orElseThrow(() -> new ResourceNotFoundException("User not found: " + userID));
     }
@@ -209,7 +263,8 @@ public class UserController {
         String code = request.get("code");
 
         if (email == null || code == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("message", "Email and code are required."));
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(Map.of("message", "Email and code are required."));
         }
 
         try {
@@ -221,7 +276,8 @@ public class UserController {
 
             return ResponseEntity.ok(Map.of("message", "Verification code sent successfully."));
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Map.of("message", "Failed to send verification code."));
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Map.of("message", "Failed to send verification code."));
         }
     }
 }

@@ -1,0 +1,204 @@
+/* Modern Form Styling */
+.add-post-page {
+    min-height: 100vh;
+    background-color: #f5f7fa;
+  }
+  
+  .add-post-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 40px 20px;
+  }
+  
+  .post-form-card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+    padding: 32px;
+    transition: all 0.3s ease;
+  }
+  
+  .form-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 30px;
+    text-align: center;
+  }
+  
+  .post-form {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .form-group label {
+    font-weight: 600;
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 4px;
+  }
+  
+  .form-input,
+  .form-textarea,
+  .form-select {
+    padding: 12px 16px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+  }
+  
+  .form-input:focus,
+  .form-textarea:focus,
+  .form-select:focus {
+    outline: none;
+    border-color: #4a90e2;
+    box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.1);
+  }
+  
+  .form-textarea {
+    resize: vertical;
+    min-height: 120px;
+  }
+  
+  .file-upload-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .file-upload-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 24px;
+    background: #f3f4f6;
+    border: 1px dashed #ccc;
+    border-radius: 8px;
+    color: #555;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .file-upload-btn:hover {
+    background: #e5e7eb;
+    color: #333;
+  }
+  
+  .hidden-input {
+    position: absolute;
+    opacity: 0;
+    width: 0.1px;
+    height: 0.1px;
+    overflow: hidden;
+  }
+  
+  .file-limit-info {
+    font-size: 13px;
+    color: #666;
+    margin-top: 4px;
+  }
+  
+  .media-preview-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 16px;
+    margin-top: 16px;
+  }
+  
+  .media-preview-item {
+    position: relative;
+    display: inline-block;
+    margin: 8px;
+  }
+  
+  .media-preview {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+  
+  .video-preview {
+    background-color: #000;
+  }
+  
+  .submit-btn {
+    margin-top: 8px;
+    padding: 14px 28px;
+    background: linear-gradient(135deg, #4a90e2, #63b3ed);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    align-self: center;
+  }
+  
+  .submit-btn:hover {
+    background: linear-gradient(135deg, #3a80d2, #53a3dd);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(74, 144, 226, 0.3);
+  }
+  
+  .submit-btn:active {
+    transform: translateY(0);
+  }
+  
+  /* Style for the X icon remove button - updated for visibility */
+  .remove-media-btn {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #ffffff;
+    border: none;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    padding: 0;
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  .remove-media-btn:hover {
+    transform: scale(1.2);
+    background-color: rgba(255, 0, 0, 0.7);
+  }
+  
+  .media-preview-item {
+    position: relative;
+    display: inline-block;
+    margin: 8px;
+  }
+  
+  /* Make sure the form is responsive */
+  @media (max-width: 768px) {
+    .add-post-container {
+      padding: 20px 16px;
+    }
+    
+    .post-form-card {
+      padding: 24px 16px;
+    }
+    
+    .media-preview-grid {
+      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    }
+  }
+  
