@@ -12,20 +12,6 @@ A modern full-stack web application built with React and Spring Boot, designed t
 - OAuth2 client integration for social login
 - File upload capabilities
 
-## 📸 Screenshots
-
-### Home Page
-![Home Page](screenshots/home.png)
-
-### Learning Plans Page
-![Learning Plans](screenshots/plans.png)
-
-### Profile Page
-![Profile](screenshots/profile.png)
-
-### Achievements
-![Achievements](screenshots/skills.png)
-
 ## 🛠️ Tech Stack
 
 ### Frontend
@@ -73,6 +59,26 @@ mvn spring-boot: run
 2. Set up your OAuth2 credentials
 3. Configure email settings for notifications
 
+## 👨‍💻 Contributors
+
+<a href="https://github.com/Akash-Karunanayake/SKILLSPRING---A-Skill-Sharing-and-Learning-Platform/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=Akash-Karunanayake/SKILLSPRING---A-Skill-Sharing-and-Learning-Platform" />
+</a>
+
+## 📸 Screenshots
+
+### Home Page
+![Home Page](screenshots/home.png)
+
+### Learning Plans Page
+![Learning Plans](screenshots/plans.png)
+
+### Profile Page
+![Profile](screenshots/profile.png)
+
+### Achievements
+![Achievements](screenshots/skills.png)
+
 ## 📝 License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
@@ -80,14 +86,6 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 ## 👥 Contributing
 
 Contributions are welcome! Please feel free to submit a Pull Request.
-
-## 👨‍💻 Contributors
-
-<a href="https://github.com/Akash-Karunanayake/SKILLSPRING---A-Skill-Sharing-and-Learning-Platform/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=Akash-Karunanayake/SKILLSPRING---A-Skill-Sharing-and-Learning-Platform" />
-</a>
-
-
 
 ## 📧 Contact
 
