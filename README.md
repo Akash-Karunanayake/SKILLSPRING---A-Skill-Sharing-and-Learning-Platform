@@ -77,10 +77,7 @@ This repo is now a symbol of **how far I fell** and where I **begin again**.
 
 This README will stay here as-is, forever.  
 I will **restart this project**, rebuild every line of code with honesty and discipline.
-
-No fake code.  
-No shortcuts.  
-No hiding.
+## 👉 **[💻 View the new repository where I’m rebuilding this project from scratch.](https://github.com/Akash-Karunanayake/Zircuit)**
 
 ## 💬 Final Words
 
